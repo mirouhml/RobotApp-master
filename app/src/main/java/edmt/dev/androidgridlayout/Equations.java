@@ -125,11 +125,16 @@ public class Equations extends AppCompatActivity {
                 return sol;
             }
             case "-":{
-                int max = number1;
-                int min = solution;
-                sol = new Random().nextInt((max - min) + 1) + min;
-                while (sol == solution||sol<0) {
+                if (number1==number2 && number1<4){
+                    sol = new Random().nextInt((4 - 1) + 1) + 1;
+                }
+                else {
+                    int max = number1;
+                    int min = solution;
                     sol = new Random().nextInt((max - min) + 1) + min;
+                    while (sol == solution || sol < 0) {
+                        sol = new Random().nextInt((max - min) + 1) + min;
+                    }
                 }
                 break;
             }
