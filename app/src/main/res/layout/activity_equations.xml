@@ -3,13 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3"> <!-- to show what the parent is -->
+    android:weightSum=""> <!-- to show what the parent is -->
     <LinearLayout
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:paddingTop="20dp">
         <TextView
             android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Opération suivant"
+                android:text="Opération suivante"
                 android:onClick="clickNext"/>
             <Button
                 android:id="@+id/choose"
@@ -89,57 +89,251 @@
             android:inputType="number"
             android:importantForAutofill="no" />
     </LinearLayout>
-    <RelativeLayout
+    <LinearLayout
         android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1" >
-        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+        <LinearLayout
+            android:background="@drawable/border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/center"
-            android:src="@drawable/circle"
-            android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-        <ImageButton
-            android:id="@+id/arrow_right"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right"
-            android:layout_toEndOf="@id/center"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:onClick="clickRight"
-            android:foreground="?android:attr/selectableItemBackground"/>
-        <ImageButton
-            android:id="@+id/arrow_left"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/blackView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Black"/>
+                <TextView
+                    android:id="@+id/blackViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/blackView"
+                    android:layout_alignTop="@+id/blackView"
+                    android:layout_alignEnd="@+id/blackView"
+                    android:layout_alignBottom="@+id/blackView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:text="Hello"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/redView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Red"/>
+                <TextView
+                    android:id="@+id/redViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignStart="@+id/redView"
+                    android:layout_alignTop="@+id/redView"
+                    android:layout_alignEnd="@+id/redView"
+                    android:layout_alignBottom="@+id/redView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:text="Hello"
+                    android:textColor="#ffffff" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/yellowView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Yellow"/>
+                <TextView
+                    android:id="@+id/yellowViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/yellowView"
+                    android:layout_alignTop="@+id/yellowView"
+                    android:layout_alignRight="@+id/yellowView"
+                    android:layout_alignBottom="@+id/yellowView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:text="Hello"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_left"
-            android:layout_toStartOf="@id/center"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:onClick="clickLeft"
-            android:foreground="?android:attr/selectableItemBackground"/>
-        <ImageButton
-            android:id="@+id/arrow_up"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/blueView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Blue"/>
+                <TextView
+                    android:id="@+id/blueViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/blueView"
+                    android:layout_alignTop="@+id/blueView"
+                    android:layout_alignRight="@+id/blueView"
+                    android:layout_alignBottom="@+id/blueView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:text="Hello"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/purpleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Purple"/>
+                <TextView
+                    android:id="@+id/purpleViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/purpleView"
+                    android:layout_alignTop="@+id/purpleView"
+                    android:layout_alignRight="@+id/purpleView"
+                    android:layout_alignBottom="@+id/purpleView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:text="Hello"
+                    android:textColor="#000000" />
+                <ImageView
+                    android:id="@+id/circlePurpleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/purpleView"
+                    android:layout_alignTop="@+id/purpleView"
+                    android:layout_alignRight="@+id/purpleView"
+                    android:layout_alignBottom="@+id/purpleView"
+                    android:layout_margin="1dp"
+                    android:src="@drawable/circle" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/pinkView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Pink"/>
+                <TextView
+                    android:id="@+id/pinkViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/pinkView"
+                    android:layout_alignTop="@+id/pinkView"
+                    android:layout_alignRight="@+id/pinkView"
+                    android:layout_alignBottom="@+id/pinkView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:text="Hello"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_up"
-            android:layout_above="@id/center"
-            android:layout_centerHorizontal="true"
-            android:background="@null"
-            android:onClick="clickUp"
-            android:foreground="?android:attr/selectableItemBackground"/>
-        <ImageButton
-            android:id="@+id/arrow_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_down"
-            android:layout_below="@id/center"
-            android:layout_centerHorizontal="true"
-            android:background="@null"
-            android:onClick="clickDown"
-            android:foreground="?android:attr/selectableItemBackground"/>
-    </RelativeLayout>
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/greenView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Green"/>
+                <TextView
+                    android:id="@+id/greenViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/greenView"
+                    android:layout_alignTop="@+id/greenView"
+                    android:layout_alignRight="@+id/greenView"
+                    android:layout_alignBottom="@+id/greenView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:text="Hello"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/whiteView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/White"/>
+                <TextView
+                    android:id="@+id/whiteViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/whiteView"
+                    android:layout_alignTop="@+id/whiteView"
+                    android:layout_alignRight="@+id/whiteView"
+                    android:layout_alignBottom="@+id/whiteView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:text="Hello"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/grayView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Gray" />
+                <TextView
+                    android:id="@+id/grayViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/grayView"
+                    android:layout_alignTop="@+id/grayView"
+                    android:layout_alignRight="@+id/grayView"
+                    android:layout_alignBottom="@+id/grayView"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:text="Hello"
+                    android:textColor="#ffffff" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
     </LinearLayout>

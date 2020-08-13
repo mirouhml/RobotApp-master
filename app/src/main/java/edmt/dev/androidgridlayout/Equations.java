@@ -3,7 +3,7 @@ package edmt.dev.androidgridlayout;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +31,7 @@ public class Equations extends AppCompatActivity {
     int number1;
     int number2;
     int[] map;
+    BluetoothAdapter mBluetoothAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +46,14 @@ public class Equations extends AppCompatActivity {
         setEquation();
         generateMap();
         bluetoothManager = BluetoothManager.getInstance();
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
             Toast.makeText(this, "This device doesn't have Bluetooth.", Toast.LENGTH_LONG).show(); // Replace context with your context instance.
             finish();
         } else if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)
-            Toast.makeText(this, "Bluetooth isn't enabled, please enable it.", Toast.LENGTH_LONG).show(); // Replace context with your context instance.
-            finish();
+            mBluetoothAdapter.enable();
         }
         connectDevice();
     }
@@ -192,11 +192,10 @@ public class Equations extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void generateMap(){
-        map = new int[]{-1,-1,-1,-1,
-                -1,-1,-1,-1,
-                -1,-1,-1,-1,
-                -1,-1,-1,-1};
-        for (int j = 0; j < 3; j++) {
+        map = new int[]{-1,-1,-1,
+                -1,-1,-1,
+                -1,-1,-1};
+        for (int j = 0; j < 2; j++) {
             map[j] = randomSolution();
             for (int k = 0; k < j; k++) {
                 if (map[j] == map[k]) {
@@ -207,13 +206,61 @@ public class Equations extends AppCompatActivity {
         }
         map[4] = solution;
         shuffleArray(map);
-        TextView message = findViewById(R.id.msg);
-        message.setText(map[0]+"  "+map[1]+"  "+map[2]+"  "+map[3]+"\n"+
-                        map[4]+"  "+map[5]+"  "+map[6]+"  "+map[7]+"\n"+
-                        map[8]+"  "+map[9]+"  "+map[10]+"  "+map[11]+"\n"+
-                        map[12]+"  "+map[13]+"  "+map[14]+"  "+map[15]+"\n");
+        for(int j=0; j<map.length;j++){
+            if (map[j]!=-1)
+                setTile(j);
+        }
     }
 
+    private void setTile(int j){
+        switch (j){
+            case 0:{
+                TextView text = findViewById(R.id.blackViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 1:{
+                TextView text = findViewById(R.id.redViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 2:{
+                TextView text = findViewById(R.id.yellowViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 3:{
+                TextView text = findViewById(R.id.blueViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 4:{
+                TextView text = findViewById(R.id.purpleViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 5:{
+                TextView text = findViewById(R.id.pinkViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 6:{
+                TextView text = findViewById(R.id.greenViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 7:{
+                TextView text = findViewById(R.id.whiteViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+            case 8:{
+                TextView text = findViewById(R.id.grayViewText);
+                text.setText(""+map[j]);
+                break;
+            }
+        }
+    }
     private void shuffleArray(int[] ar) {
         // If running on Java 6 or older, use `new Random()` on RHS here
         Random rnd = new Random();
@@ -273,8 +320,15 @@ public class Equations extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        mBluetoothAdapter.disable();
         bluetoothManager.close();
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mBluetoothAdapter.enable();
+        bluetoothManager = BluetoothManager.getInstance();
+        connectDevice();
+    }
 }
