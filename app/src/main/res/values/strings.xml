@@ -11,4 +11,15 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="next">Suivant</string>
+    <string name="confirm_answer">Confirmer réponse</string>
+    <string name="answer">Answer</string>
+    <string name="operation">Opération</string>
+    <string name="next_operation">Opération suivante</string>
+    <string name="message">Essaie encore!</string>
+    <string name="question_mark">\?</string>
+    <string name="equal_mark">=</string>
+    <string name="second_number">3</string>
+    <string name="operator">+</string>
+    <string name="first_number">5</string>
 </resources>

@@ -22,18 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Equations"
+        <activity android:name=".MentalCalculations"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:label="Equations Mathématiques"/>
+            android:label="Calcul Mental"/>
         <activity android:name=".FreeMovement"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:label="Déplacement Libre"/>
-        <activity android:name=".MentalCalculation"
+        <activity android:name=".SearchForObject"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:label="Calcul Mental"/>
+            android:label="Objets cachés"/>
     </application>
 
 </manifest>

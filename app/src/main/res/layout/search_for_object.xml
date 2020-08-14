@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="4"> <!-- to show what the parent is -->
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trouve le fruit"
+            android:textSize="40sp"
+            android:textColor="@android:color/black"/>p"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+            <Button
+                android:id="@+id/choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/confirm_answer"
+                android:onClick="clickChoose"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/next"
+                android:onClick="clickNext"/>
+            <Button
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ok"
+                android:visibility="gone"
+                android:onClick="locate"/>
+
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/answer"
+            android:inputType="number"
+            android:visibility="gone"
+            android:importantForAutofill="no" />
+    </LinearLayout>
+    <include
+        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        layout="@layout/map_layout" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center">
+        <include
+            android:layout_height="200dp"
+            android:layout_width="200dp"
+            layout="@layout/controller" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package edmt.dev.androidgridlayout;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,11 +16,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     GridLayout mainGrid;
+    BluetoothAdapter mBluetoothAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,15 @@ public class HomePage extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         mainGrid = (GridLayout) findViewById(R.id.mainGrid);
-
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+            Toast.makeText(this, "This device doesn't have Bluetooth.", Toast.LENGTH_LONG).show(); // Replace context with your context instance.
+            finish();
+        } else if (!mBluetoothAdapter.isEnabled()) {
+            // Bluetooth is not enabled :)
+            mBluetoothAdapter.enable();
+        }
     }
 
     @Override
@@ -61,7 +72,7 @@ public class HomePage extends AppCompatActivity {
 
 
     public void clickOnMentalCalculation(View view){
-        Intent intent = new Intent(HomePage.this, MentalCalculation.class);
+        Intent intent = new Intent(HomePage.this, MentalCalculations.class);
         startActivity(intent);
     }
 
@@ -71,7 +82,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void clickOnEquations(View view){
-        Intent intent = new Intent(HomePage.this, Equations.class);
+        Intent intent = new Intent(HomePage.this, SearchForObject.class);
         startActivity(intent);
     }
+
 }
