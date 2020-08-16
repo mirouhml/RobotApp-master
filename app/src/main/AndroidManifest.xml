@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edmt.dev.androidgridlayout">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -7,16 +8,41 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/app_icon"
+        android:label="Robot4kids"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".LearnFruits"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
+        <activity android:name=".HomePage"
+            android:configChanges="orientation"
+            android:label="Robot4Kids"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LearnAnimals"
+            android:configChanges="orientation"
+            android:label="Animaux"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LearnVegetables"
+            android:configChanges="orientation"
+            android:label="Légumes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LearnFruits"
+            android:configChanges="orientation"
+            android:label="Fruits"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Learn"
             android:configChanges="orientation"
-            android:label="L&apos;apprentissage"
+            android:label="Apprentissage"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForAnimals"
@@ -33,18 +59,6 @@
             android:configChanges="orientation"
             android:label="Les fruits"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".HomePage"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_home_page"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".MentalCalculations"
             android:configChanges="orientation"

@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout
+        android:id="@+id/hiddenObjects"
         android:orientation="vertical"
         android:background="@drawable/bg"
         android:weightSum="10"
@@ -18,7 +20,7 @@
             android:layout_height="0dp">
 
             <TextView
-                android:id="@+id/textGrid"
+                android:id="@+id/textHiddenObjects"
                 android:text="@string/hidden_objects"
                 android:textSize="34sp"
                 android:textColor="@android:color/white"

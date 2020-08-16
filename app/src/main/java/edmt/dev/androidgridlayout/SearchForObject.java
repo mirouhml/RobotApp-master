@@ -28,21 +28,6 @@ public class SearchForObject extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void clickRight(View view){ Toast.makeText(this,"Right",Toast.LENGTH_SHORT).show(); }
-
-    public void clickLeft(View view){
-        Toast.makeText(this,"Left",Toast.LENGTH_SHORT).show();
-    }
-
-    public void clickUp(View view){
-        Toast.makeText(this,"Up",Toast.LENGTH_SHORT).show();
-    }
-
-    public void clickDown(View view){
-        Toast.makeText(this,"Down",Toast.LENGTH_SHORT).show();
-    }
-
     public void clickOnFruits(View view){
         Intent intent = new Intent(SearchForObject.this, SearchForFruits.class);
         startActivity(intent);

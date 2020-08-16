@@ -102,19 +102,51 @@ public class SearchForAnimals extends AppCompatActivity {
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         animals.add(new Thing("chat","le",R.drawable.cat2));
-        animals.add(new Thing("banane","la",R.drawable.banana));
-        animals.add(new Thing("baie","la",R.drawable.berries));
-        animals.add(new Thing("cerise","la",R.drawable.cherry));
-        animals.add(new Thing("raisin","le",R.drawable.grapes));
-        animals.add(new Thing("grenade","la",R.drawable.grenade));
-        animals.add(new Thing("noix de coco","la",R.drawable.coconut));
-        animals.add(new Thing("kiwi","le",R.drawable.kiwi));
-        animals.add(new Thing("citron","le",R.drawable.leomn));
-        animals.add(new Thing("melon","le",R.drawable.melon));
-        animals.add(new Thing("orange","l'",R.drawable.orange_2));
-        animals.add(new Thing("ananas","l'",R.drawable.pineapple));
-        animals.add(new Thing("fraise","la",R.drawable.strawberry));
-        animals.add(new Thing("pastèque","la",R.drawable.watermelon_2));
+        animals.add(new Thing("chien","le",R.drawable.dog));
+        animals.add(new Thing("poulet","le",R.drawable.chicken));
+        animals.add(new Thing("canard","le",R.drawable.duck));
+        animals.add(new Thing("poisson","le",R.drawable.fish));
+        animals.add(new Thing("dauphin","le",R.drawable.dolphin));
+        animals.add(new Thing("éléphant","l'",R.drawable.elephant));
+        animals.add(new Thing("chameau","le",R.drawable.camel));
+        animals.add(new Thing("cerf","le",R.drawable.deer));
+        animals.add(new Thing("girafe","la",R.drawable.giragge));
+        animals.add(new Thing("lion","le",R.drawable.lion));
+        animals.add(new Thing("mouton","le",R.drawable.sheep));
+        animals.add(new Thing("lapin","le",R.drawable.rabbit));
+        animals.add(new Thing("cheval","le",R.drawable.horse));
+        animals.add(new Thing("singe","le",R.drawable.monkey));
+        animals.add(new Thing("cygne","le",R.drawable.swan));
+        animals.add(new Thing("tortue","la",R.drawable.turtle));
+        animals.add(new Thing("écureuil","l'",R.drawable.squirrel));
+        animals.add(new Thing("koala","le",R.drawable.koala));
+        animals.add(new Thing("panda","le",R.drawable.panda_bear));
+        animals.add(new Thing("grenouille","la",R.drawable.frog));
+        animals.add(new Thing("porc","le",R.drawable.pig));
+        animals.add(new Thing("serpent","le",R.drawable.snake));
+        animals.add(new Thing("abeille","l'",R.drawable.bee));
+        animals.add(new Thing("crabe","le",R.drawable.crab));
+        animals.add(new Thing("flamant","le",R.drawable.flamingo));
+        animals.add(new Thing("hérisson","l'",R.drawable.hedgedog));
+        animals.add(new Thing("hippopotame","l'",R.drawable.hippopotamus));
+        animals.add(new Thing("méduse","la",R.drawable.jellyfish));
+        animals.add(new Thing("kangourou","le",R.drawable.kangaroo));
+        animals.add(new Thing("lama","le",R.drawable.llama));
+        animals.add(new Thing("poulpe","le",R.drawable.octopus));
+        animals.add(new Thing("hibou","l'",R.drawable.owl));
+        animals.add(new Thing("perroquet","le",R.drawable.parrot));
+        animals.add(new Thing("manchot","le",R.drawable.penguin));
+        animals.add(new Thing("hippocampe","l'",R.drawable.seahorse));
+        animals.add(new Thing("phoque","le",R.drawable.seal));
+        animals.add(new Thing("requin","le",R.drawable.shark));
+        animals.add(new Thing("calamar","le",R.drawable.squid));
+        animals.add(new Thing("baleine","la",R.drawable.whale));
+
+
+
+
+
+
 
 
         blackImageView = findViewById(R.id.imageBlackView);

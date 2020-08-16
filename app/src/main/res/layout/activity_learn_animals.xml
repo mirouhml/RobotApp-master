@@ -5,15 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
+    <include
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp" />
-
+        android:layout_width="match_parent"
+        layout="@layout/activity_learn_fruits" />
 </LinearLayout>
