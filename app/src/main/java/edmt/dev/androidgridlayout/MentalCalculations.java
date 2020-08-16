@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,14 +45,12 @@ public class MentalCalculations extends AppCompatActivity {
     TextView whiteText;
     TextView grayText;
     TextView message;
-    BluetoothManager bluetoothManager;
-
-    Button choose;
-    int location;
     String operator;
     int number1;
     int number2;
     int[] map;
+    int location;
+    BluetoothManager bluetoothManager;
     BluetoothAdapter mBluetoothAdapter;
     final LoadingDialogue dialogue = new LoadingDialogue(MentalCalculations.this);
     @SuppressLint("StaticFieldLeak")
@@ -61,13 +58,15 @@ public class MentalCalculations extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mental_calculations);
-        dialogue.startLoadingDialogue();
+        dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        //checking whether the bluetooth is on or not
         if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)
             mBluetoothAdapter.enable();
         }
+        //showing the loading view
         new AsyncTask<Void, Void, Void>(){
             @SuppressLint("StaticFieldLeak")
             @Override
@@ -87,6 +86,7 @@ public class MentalCalculations extends AppCompatActivity {
                 super.onPostExecute(aVoid);
             }
         }.execute();
+
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         blackText = findViewById(R.id.blackViewText);
@@ -99,7 +99,6 @@ public class MentalCalculations extends AppCompatActivity {
         whiteText = findViewById(R.id.whiteViewText);
         grayText = findViewById(R.id.grayViewText);
         answer = findViewById(R.id.result);
-        choose = findViewById(R.id.choose);
         num1 = findViewById(R.id.first_number);
         num2 = findViewById(R.id.second_number);
         oper = findViewById(R.id.operator);
@@ -133,6 +132,9 @@ public class MentalCalculations extends AppCompatActivity {
     public void clickNext(View view){
         refresh();
         message.setVisibility(View.INVISIBLE);
+        if (dialogue.isOn){
+            dialogue.dismissLoadingDIalogue();
+        }
     }
 
     public void clickChoose(View view){
@@ -143,8 +145,7 @@ public class MentalCalculations extends AppCompatActivity {
         }
         if (map[location] == solution)
         {
-            Toast.makeText(this,"CORRECT",Toast.LENGTH_SHORT).show();
-            message.setVisibility(View.INVISIBLE);
+            dialogue.startLoadingDialogue(R.layout.success);
         }
 
         else
@@ -274,7 +275,7 @@ public class MentalCalculations extends AppCompatActivity {
                 }
             }
         }
-        map[4] = solution;
+        map[2] = solution;
         shuffleArray(map);
         for(int j=0; j<map.length;j++){
             if (map[j]!=-1)
@@ -365,16 +366,15 @@ public class MentalCalculations extends AppCompatActivity {
 
     private void onMessageReceived(String message) {
         // We received a message! Handle it here.
-        //Toast.makeText(this, "Message received: "+message, Toast.LENGTH_LONG).show();
         location = Integer.parseInt(message);
-        setLocation(location);
-        //choose.setEnabled(true);
+        setLocation();
     }
+    @SuppressLint("StaticFieldLeak")
     private void onError(Throwable error) {
         // Handle the error
         dialogue.dismissLoadingDIalogue();
-        Toast.makeText(this, "Couldn't connect to the robot!", Toast.LENGTH_SHORT).show();
-        finish();
+        dialogue.startLoadingDialogue(R.layout.connect_robot);
+        //showing the loading view
     }
 
     private void refresh() {
@@ -390,7 +390,7 @@ public class MentalCalculations extends AppCompatActivity {
         setEquation();
         generateMap();
     }
-    private void setLocation(int location){
+    private void setLocation(){
         switch (location){
             case 0:{
                 blackLocation.setVisibility(View.VISIBLE);
@@ -526,7 +526,8 @@ public class MentalCalculations extends AppCompatActivity {
         connectDevice();
     }
 
-    public void locate(View view){
-        setLocation(Integer.parseInt(answer.getText().toString()));
+    public void onOk(View view){
+        dialogue.dismissLoadingDIalogue();
+        finish();
     }
 }

@@ -41,6 +41,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
     def nav_version = "2.3.0"
     // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"

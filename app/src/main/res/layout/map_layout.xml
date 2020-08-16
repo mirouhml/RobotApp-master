@@ -64,7 +64,6 @@
                         android:visibility="invisible"
                         android:src="@drawable/circle" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -163,42 +162,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:id="@+id/blueView"
+                        android:id="@+id/whiteView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/blue"/>
+                        android:src="@drawable/white"/>
                     <TextView
-                        android:id="@+id/blueViewText"
+                        android:id="@+id/whiteViewText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/blueView"
-                        android:layout_alignTop="@+id/blueView"
-                        android:layout_alignEnd="@+id/blueView"
-                        android:layout_alignBottom="@+id/blueView"
+                        android:layout_alignStart="@+id/whiteView"
+                        android:layout_alignTop="@+id/whiteView"
+                        android:layout_alignEnd="@+id/whiteView"
+                        android:layout_alignBottom="@+id/whiteView"
                         android:layout_margin="1dp"
-                        android:gravity="center"
                         android:textSize="30sp"
                         android:textStyle="bold"
+                        android:gravity="center"
                         android:textColor="#000000" />
                     <ImageView
-                        android:id="@+id/circleBlueView"
+                        android:id="@+id/circleWhiteView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/blueView"
-                        android:layout_alignTop="@+id/blueView"
-                        android:layout_alignEnd="@+id/blueView"
-                        android:layout_alignBottom="@+id/blueView"
+                        android:layout_alignStart="@+id/whiteView"
+                        android:layout_alignTop="@+id/whiteView"
+                        android:layout_alignEnd="@+id/whiteView"
+                        android:layout_alignBottom="@+id/whiteView"
                         android:layout_margin="1dp"
                         android:visibility="invisible"
                         android:src="@drawable/black_circle" />
                     <ImageView
-                        android:id="@+id/imageBlueView"
+                        android:id="@+id/imageWhiteView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/blueView"
-                        android:layout_alignTop="@+id/blueView"
-                        android:layout_alignEnd="@+id/blueView"
-                        android:layout_alignBottom="@+id/blueView"
+                        android:layout_alignStart="@+id/whiteView"
+                        android:layout_alignTop="@+id/whiteView"
+                        android:layout_alignEnd="@+id/whiteView"
+                        android:layout_alignBottom="@+id/whiteView"
                         android:layout_margin="15dp"
                         android:visibility="invisible"
                         android:src="@drawable/circle" />
@@ -302,6 +301,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/blueView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/blue"/>
+                    <TextView
+                        android:id="@+id/blueViewText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/blueView"
+                        android:layout_alignTop="@+id/blueView"
+                        android:layout_alignEnd="@+id/blueView"
+                        android:layout_alignBottom="@+id/blueView"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000" />
+                    <ImageView
+                        android:id="@+id/circleBlueView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/blueView"
+                        android:layout_alignTop="@+id/blueView"
+                        android:layout_alignEnd="@+id/blueView"
+                        android:layout_alignBottom="@+id/blueView"
+                        android:layout_margin="1dp"
+                        android:visibility="invisible"
+                        android:src="@drawable/black_circle" />
+                    <ImageView
+                        android:id="@+id/imageBlueView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/blueView"
+                        android:layout_alignTop="@+id/blueView"
+                        android:layout_alignEnd="@+id/blueView"
+                        android:layout_alignBottom="@+id/blueView"
+                        android:layout_margin="15dp"
+                        android:visibility="invisible"
+                        android:src="@drawable/circle" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
                         android:id="@+id/greenView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -338,50 +381,6 @@
                         android:layout_alignTop="@+id/greenView"
                         android:layout_alignEnd="@+id/greenView"
                         android:layout_alignBottom="@+id/greenView"
-                        android:layout_margin="15dp"
-                        android:visibility="invisible"
-                        android:src="@drawable/circle" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/whiteView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/white"/>
-                    <TextView
-                        android:id="@+id/whiteViewText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/whiteView"
-                        android:layout_alignTop="@+id/whiteView"
-                        android:layout_alignEnd="@+id/whiteView"
-                        android:layout_alignBottom="@+id/whiteView"
-                        android:layout_margin="1dp"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="#000000" />
-                    <ImageView
-                        android:id="@+id/circleWhiteView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/whiteView"
-                        android:layout_alignTop="@+id/whiteView"
-                        android:layout_alignEnd="@+id/whiteView"
-                        android:layout_alignBottom="@+id/whiteView"
-                        android:layout_margin="1dp"
-                        android:visibility="invisible"
-                        android:src="@drawable/black_circle" />
-                    <ImageView
-                        android:id="@+id/imageWhiteView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/whiteView"
-                        android:layout_alignTop="@+id/whiteView"
-                        android:layout_alignEnd="@+id/whiteView"
-                        android:layout_alignBottom="@+id/whiteView"
                         android:layout_margin="15dp"
                         android:visibility="invisible"
                         android:src="@drawable/circle" />

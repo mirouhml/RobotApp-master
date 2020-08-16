@@ -22,4 +22,18 @@
     <string name="second_number">3</string>
     <string name="operator">+</string>
     <string name="first_number">5</string>
+    <string name="loading">Loading..</string>
+    <string name="congrats">Bravo!</string>
+    <string name="correct_answer">C\'était la bonne réponse.</string>
+    <string name="hidden_objects">Objets cachés</string>
+    <string name="animals">Les animaux</string>
+    <string name="fruits">Les fruits</string>
+    <string name="vegetables">Les légumes</string>
+    <string name="find"> Trouver</string>
+    <string name="next_fruit">fruit suivant</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="free_movement">Déplacement libre</string>
+    <string name="learning">Apprentissage</string>
+    <string name="connect_the_robot_please">Connectez le robot s\'il vous plaît</string>
+    <string name="ok">Ok</string>
 </resources>

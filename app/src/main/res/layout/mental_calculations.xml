@@ -92,7 +92,7 @@
                     android:paddingBottom="6dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:background="#B8E6E9"
+                    android:theme="@style/AppTheme.Button"
                     android:onClick="clickNext"
                     tools:ignore="ButtonStyle" />
                 <Button
@@ -105,7 +105,7 @@
                     android:paddingBottom="6dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:background="#B8E6E9"
+                    android:theme="@style/AppTheme.Button"
                     android:onClick="clickChoose"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>

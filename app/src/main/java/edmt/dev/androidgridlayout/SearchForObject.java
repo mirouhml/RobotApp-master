@@ -42,4 +42,19 @@ public class SearchForObject extends AppCompatActivity {
     public void clickDown(View view){
         Toast.makeText(this,"Down",Toast.LENGTH_SHORT).show();
     }
+
+    public void clickOnFruits(View view){
+        Intent intent = new Intent(SearchForObject.this, SearchForFruits.class);
+        startActivity(intent);
+    }
+
+    public void clickOnVegetables(View view){
+        Intent intent = new Intent(SearchForObject.this, SearchForVegetables.class);
+        startActivity(intent);
+    }
+
+    public void clickOnAnimals(View view){
+        Intent intent = new Intent(SearchForObject.this, SearchForAnimals.class);
+        startActivity(intent);
+    }
 }

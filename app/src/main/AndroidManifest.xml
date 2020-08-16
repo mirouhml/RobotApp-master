@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edmt.dev.androidgridlayout">
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,30 +12,54 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LearnFruits"></activity>
+        <activity
+            android:name=".Learn"
+            android:configChanges="orientation"
+            android:label="L&apos;apprentissage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchForAnimals"
+            android:configChanges="orientation"
+            android:label="Les animaux"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchForVegetables"
+            android:configChanges="orientation"
+            android:label="Les légumes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchForFruits"
+            android:configChanges="orientation"
+            android:label="Les fruits"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomePage"
-            android:label="@string/title_activity_home_page"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_home_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MentalCalculations"
+        <activity
+            android:name=".MentalCalculations"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Calcul Mental"/>
-        <activity android:name=".FreeMovement"
+            android:label="Calcul Mental"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FreeMovement"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Déplacement Libre"/>
-        <activity android:name=".SearchForObject"
+            android:label="Déplacement Libre"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchForObject"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Objets cachés"/>
+            android:label="Objets cachés"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

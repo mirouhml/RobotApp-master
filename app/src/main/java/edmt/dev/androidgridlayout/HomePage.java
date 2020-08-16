@@ -81,9 +81,13 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickOnEquations(View view){
+    public void clickOnHiddenObjects(View view){
         Intent intent = new Intent(HomePage.this, SearchForObject.class);
         startActivity(intent);
     }
 
+    public void clickOnLearn(View view){
+        Intent intent = new Intent(HomePage.this, Learn.class);
+        startActivity(intent);
+    }
 }
