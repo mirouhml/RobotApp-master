@@ -1,28 +1,16 @@
 <resources>
-    <string name="app_name">AndroidGridLayout</string>
-    <string name="title_activity_home_page">HomePage</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <string name="next">Suivant</string>
     <string name="confirm_answer">Confirmer réponse</string>
-    <string name="answer">Answer</string>
+    <string name="answer">Réponse</string>
     <string name="operation">Opération</string>
     <string name="next_operation">Opération suivante</string>
     <string name="message">Essaie encore!</string>
-    <string name="question_mark">\?</string>
-    <string name="equal_mark">=</string>
-    <string name="second_number">3</string>
-    <string name="operator">+</string>
-    <string name="first_number">5</string>
-    <string name="loading">Loading..</string>
+    <string name="question_mark"  translatable="false">\?</string>
+    <string name="equal_mark"  translatable="false">=</string>
+    <string name="second_number"  translatable="false">3</string>
+    <string name="operator"  translatable="false">+</string>
+    <string name="first_number"  translatable="false">5</string>
+    <string name="loading">Chargement..</string>
     <string name="congrats">Bravo!</string>
     <string name="correct_answer">C\'était la bonne réponse.</string>
     <string name="hidden_objects">Objets cachés</string>
@@ -35,5 +23,74 @@
     <string name="free_movement">Déplacement libre</string>
     <string name="learning">Apprentissage</string>
     <string name="connect_the_robot_please">Connectez le robot s\'il vous plaît</string>
-    <string name="ok">Ok</string>
+    <string name="ok" translatable="false">Ok</string>
+    <string name="apple">La pomme</string>
+    <string name="banana">La banane</string>
+    <string name="berries">La baie</string>
+    <string name="cherry">La cerise</string>
+    <string name="grapes">Le raisin</string>
+    <string name="grenade">La grenade</string>
+    <string name="coconut">La noix de coco</string>
+    <string name="kiwi">Le kiwi</string>
+    <string name="lemon">Le citron</string>
+    <string name="melon">Le melon</string>
+    <string name="orange">L\'orange</string>
+    <string name="pineapple">L\'ananas</string>
+    <string name="strawberry">La fraise</string>
+    <string name="watermelon">La pastèque</string>
+    <string name="carrot">La carrot</string>
+    <string name="bell_pepper">Le poivron</string>
+    <string name="corn">Le maïs</string>
+    <string name="cucumber">Le concombre</string>
+    <string name="eggplant">L\'aubergine</string>
+    <string name="garlic">L\'ail</string>
+    <string name="onion">L\'oignon</string>
+    <string name="peas">Les pois</string>
+    <string name="potato">La pomme de terre</string>
+    <string name="pumpkin">La citrouille</string>
+    <string name="tomato">La tomate</string>
+    <string name="radish">Le radis</string>
+    <string name="lettuce">La laitue</string>
+    <string name="broccoli">Le brocoli</string>
+    <string name="cat">Le chat</string>
+    <string name="dog">Le chien</string>
+    <string name="chicken">Le poulet</string>
+    <string name="duck">Le canard</string>
+    <string name="fish">Le poisson</string>
+    <string name="dolphin">Le dauphin</string>
+    <string name="elephant">L\'éléphant</string>
+    <string name="camel">Le chameau</string>
+    <string name="deer">Le cerf</string>
+    <string name="giragge">La girafe</string>
+    <string name="lion">Le lion</string>
+    <string name="sheep">Le mouton</string>
+    <string name="rabbit">Le lapin</string>
+    <string name="horse">Le cheval</string>
+    <string name="monkey">Le singe</string>
+    <string name="swan">Le cygne</string>
+    <string name="turtle">La tortue</string>
+    <string name="squirrel">L\'écureuil</string>
+    <string name="koala">Le koala</string>
+    <string name="panda_bear">Le panda</string>
+    <string name="frog">La grenouille</string>
+    <string name="pig">Le porc</string>
+    <string name="snake">Le serpent</string>
+    <string name="bee">L\'abeille</string>
+    <string name="crab">Le crabe</string>
+    <string name="flamingo">Le flamant</string>
+    <string name="hedgehog">L\'hérisson</string>
+    <string name="hippopotamus">L\'hippopotame</string>
+    <string name="jellyfish">La méduse</string>
+    <string name="kangaroo">Le kangourou</string>
+    <string name="llama">Le lama</string>
+    <string name="octopus">Le poulpe</string>
+    <string name="owl">L\'hibou</string>
+    <string name="parrot">Le perroquet</string>
+    <string name="penguin">Le manchot</string>
+    <string name="seahorse">L\'hippocampe</string>
+    <string name="seal">Le phoque</string>
+    <string name="shark">Le requin</string>
+    <string name="squid">Le calamar</string>
+    <string name="whale">La baleine</string>
+    <string name="mental_calculations">Calcul mental</string>
 </resources>

@@ -18,6 +18,7 @@ import com.harrysoft.androidbluetoothserial.BluetoothSerialDevice;
 import com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -101,20 +102,20 @@ public class SearchForVegetables extends AppCompatActivity {
 
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        vegetables.add(new Thing("carrot","la",R.drawable.carrot));
-        vegetables.add(new Thing("poivron","le",R.drawable.bell_pepper));
-        vegetables.add(new Thing("maïs","le",R.drawable.corn));
-        vegetables.add(new Thing("concombre","le",R.drawable.cucumber));
-        vegetables.add(new Thing("aubergine","l'",R.drawable.eggplant));
-        vegetables.add(new Thing("ail","l'",R.drawable.garlic));
-        vegetables.add(new Thing("oignon","l'",R.drawable.onion_2));
-        vegetables.add(new Thing("pois","les",R.drawable.peas));
-        vegetables.add(new Thing("pomme de terre","la",R.drawable.potato));
-        vegetables.add(new Thing("citrouille","la",R.drawable.pumpkin));
-        vegetables.add(new Thing("tomate","la",R.drawable.tomato));
-        vegetables.add(new Thing("radis","le",R.drawable.radish));
-        vegetables.add(new Thing("laitue","la",R.drawable.lettuce));
-        vegetables.add(new Thing("brocoli","le",R.drawable.broccoli));
+        vegetables.add(new Thing(getString(R.string.carrot),"la",R.drawable.carrot));
+        vegetables.add(new Thing(getString(R.string.bell_pepper),"le",R.drawable.bell_pepper));
+        vegetables.add(new Thing(getString(R.string.corn),"le",R.drawable.corn));
+        vegetables.add(new Thing(getString(R.string.cucumber),"le",R.drawable.cucumber));
+        vegetables.add(new Thing(getString(R.string.eggplant),"l'",R.drawable.eggplant));
+        vegetables.add(new Thing(getString(R.string.garlic),"l'",R.drawable.garlic));
+        vegetables.add(new Thing(getString(R.string.onion),"l'",R.drawable.onion_2));
+        vegetables.add(new Thing(getString(R.string.peas),"les",R.drawable.peas));
+        vegetables.add(new Thing(getString(R.string.potato),"la",R.drawable.potato));
+        vegetables.add(new Thing(getString(R.string.pumpkin),"la",R.drawable.pumpkin));
+        vegetables.add(new Thing(getString(R.string.tomato),"la",R.drawable.tomato));
+        vegetables.add(new Thing(getString(R.string.radish),"le",R.drawable.radish));
+        vegetables.add(new Thing(getString(R.string.lettuce),"la",R.drawable.lettuce));
+        vegetables.add(new Thing(getString(R.string.broccoli),"le",R.drawable.broccoli));
 
 
         blackImageView = findViewById(R.id.imageBlackView);
@@ -246,10 +247,10 @@ public class SearchForVegetables extends AppCompatActivity {
             if (map[j]!=-1)
                 setTile(j);
         }
-        if (vegetables.get(theVegetable).getGender().equals("l'"))
-            vegetableTextView.setText(" "+ vegetables.get(theVegetable).getGender()+""+ vegetables.get(theVegetable).getNAme());
+        if (Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
+            vegetableTextView.setText(" the "+ vegetables.get(theVegetable).getNAme().toLowerCase());
         else
-            vegetableTextView.setText(" "+ vegetables.get(theVegetable).getGender()+" "+ vegetables.get(theVegetable).getNAme());
+            vegetableTextView.setText(" "+ vegetables.get(theVegetable).getNAme().toLowerCase());
     }
 
     @SuppressLint("SetTextI18n")

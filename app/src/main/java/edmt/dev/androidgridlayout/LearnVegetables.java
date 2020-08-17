@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,21 +28,23 @@ public class LearnVegetables extends AppCompatActivity {
 
         ViewPager2 vegetableViewHolder = findViewById(R.id.viewPager);
         List<Thing> vegetables = new ArrayList<>();
-        vegetables.add(new Thing("La carrot","la",R.drawable.carrot));
-        vegetables.add(new Thing("Le poivron","le",R.drawable.bell_pepper));
-        vegetables.add(new Thing("Le maïs","le",R.drawable.corn));
-        vegetables.add(new Thing("Le concombre","le",R.drawable.cucumber));
-        vegetables.add(new Thing("L'aubergine","l'",R.drawable.eggplant));
-        vegetables.add(new Thing("L'ail","l'",R.drawable.garlic));
-        vegetables.add(new Thing("L'oignon","l'",R.drawable.onion_2));
-        vegetables.add(new Thing("Les pois","les",R.drawable.peas));
-        vegetables.add(new Thing("La pomme de terre","la",R.drawable.potato));
-        vegetables.add(new Thing("La citrouille","la",R.drawable.pumpkin));
-        vegetables.add(new Thing("La tomate","la",R.drawable.tomato));
-        vegetables.add(new Thing("Le radis","le",R.drawable.radish));
-        vegetables.add(new Thing("La laitue","la",R.drawable.lettuce));
-        vegetables.add(new Thing("le brocoli","le",R.drawable.broccoli));
+        vegetables.add(new Thing(getString(R.string.carrot),"la",R.drawable.carrot));
+        vegetables.add(new Thing(getString(R.string.bell_pepper),"le",R.drawable.bell_pepper));
+        vegetables.add(new Thing(getString(R.string.corn),"le",R.drawable.corn));
+        vegetables.add(new Thing(getString(R.string.cucumber),"le",R.drawable.cucumber));
+        vegetables.add(new Thing(getString(R.string.eggplant),"l'",R.drawable.eggplant));
+        vegetables.add(new Thing(getString(R.string.garlic),"l'",R.drawable.garlic));
+        vegetables.add(new Thing(getString(R.string.onion),"l'",R.drawable.onion_2));
+        vegetables.add(new Thing(getString(R.string.peas),"les",R.drawable.peas));
+        vegetables.add(new Thing(getString(R.string.potato),"la",R.drawable.potato));
+        vegetables.add(new Thing(getString(R.string.pumpkin),"la",R.drawable.pumpkin));
+        vegetables.add(new Thing(getString(R.string.tomato),"la",R.drawable.tomato));
+        vegetables.add(new Thing(getString(R.string.radish),"le",R.drawable.radish));
+        vegetables.add(new Thing(getString(R.string.lettuce),"la",R.drawable.lettuce));
+        vegetables.add(new Thing(getString(R.string.broccoli),"le",R.drawable.broccoli));
 
+        //Resources recources = getResources();
+        //View view = findViewById(R.id.learn_layout);
         vegetableViewHolder.setAdapter(new Adapter(vegetables));
         vegetableViewHolder.setClipChildren(false);
         vegetableViewHolder.setClipToPadding(false);

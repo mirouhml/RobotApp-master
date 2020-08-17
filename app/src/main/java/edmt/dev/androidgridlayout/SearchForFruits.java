@@ -19,6 +19,7 @@ import com.harrysoft.androidbluetoothserial.BluetoothSerialDevice;
 import com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -102,20 +103,20 @@ public class SearchForFruits extends AppCompatActivity {
 
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        fruits.add(new Thing("pomme","la",R.drawable.apple));
-        fruits.add(new Thing("banane","la",R.drawable.banana));
-        fruits.add(new Thing("baie","la",R.drawable.berries));
-        fruits.add(new Thing("cerise","la",R.drawable.cherry));
-        fruits.add(new Thing("raisin","le",R.drawable.grapes));
-        fruits.add(new Thing("grenade","la",R.drawable.grenade));
-        fruits.add(new Thing("noix de coco","la",R.drawable.coconut));
-        fruits.add(new Thing("kiwi","le",R.drawable.kiwi));
-        fruits.add(new Thing("citron","le",R.drawable.leomn));
-        fruits.add(new Thing("melon","le",R.drawable.melon));
-        fruits.add(new Thing("orange","l'",R.drawable.orange_2));
-        fruits.add(new Thing("ananas","l'",R.drawable.pineapple));
-        fruits.add(new Thing("fraise","la",R.drawable.strawberry));
-        fruits.add(new Thing("pastèque","la",R.drawable.watermelon_2));
+        fruits.add(new Thing(getString(R.string.apple),"la",R.drawable.apple));
+        fruits.add(new Thing(getString(R.string.banana),"la",R.drawable.banana));
+        fruits.add(new Thing(getString(R.string.berries),"la",R.drawable.berries));
+        fruits.add(new Thing(getString(R.string.cherry),"la",R.drawable.cherry));
+        fruits.add(new Thing(getString(R.string.grapes),"le",R.drawable.grapes));
+        fruits.add(new Thing(getString(R.string.grenade),"la",R.drawable.grenade));
+        fruits.add(new Thing(getString(R.string.coconut),"la",R.drawable.coconut));
+        fruits.add(new Thing(getString(R.string.kiwi),"le",R.drawable.kiwi));
+        fruits.add(new Thing(getString(R.string.lemon),"le",R.drawable.leomn));
+        fruits.add(new Thing(getString(R.string.melon),"le",R.drawable.melon));
+        fruits.add(new Thing(getString(R.string.orange),"l'",R.drawable.orange_2));
+        fruits.add(new Thing(getString(R.string.pineapple),"l'",R.drawable.pineapple));
+        fruits.add(new Thing(getString(R.string.strawberry),"la",R.drawable.strawberry));
+        fruits.add(new Thing(getString(R.string.watermelon),"la",R.drawable.watermelon_2));
 
 
         blackImageView = findViewById(R.id.imageBlackView);
@@ -246,10 +247,10 @@ public class SearchForFruits extends AppCompatActivity {
             if (map[j]!=-1)
                 setTile(j);
         }
-        if (fruits.get(theFruit).getGender().equals("l'"))
-            fruitTextView.setText(" "+fruits.get(theFruit).getGender()+""+fruits.get(theFruit).getNAme());
+        if (Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
+            fruitTextView.setText(" the "+fruits.get(theFruit).getNAme().toLowerCase());
         else
-            fruitTextView.setText(" "+fruits.get(theFruit).getGender()+" "+fruits.get(theFruit).getNAme());
+            fruitTextView.setText(" "+fruits.get(theFruit).getNAme().toLowerCase());
     }
 
     @SuppressLint("SetTextI18n")

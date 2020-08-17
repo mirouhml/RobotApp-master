@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,21 +28,22 @@ public class LearnFruits extends AppCompatActivity {
 
         ViewPager2 fruitViewPager = findViewById(R.id.viewPager);
         List<Thing> fruits = new ArrayList<>();
-        fruits.add(new Thing("La pomme","la",R.drawable.apple));
-        fruits.add(new Thing("La banane","la",R.drawable.banana));
-        fruits.add(new Thing("La baie","la",R.drawable.berries));
-        fruits.add(new Thing("La cerise","la",R.drawable.cherry));
-        fruits.add(new Thing("Le raisin","le",R.drawable.grapes));
-        fruits.add(new Thing("Le grenade","la",R.drawable.grenade));
-        fruits.add(new Thing("La noix de coco","la",R.drawable.coconut));
-        fruits.add(new Thing("Le kiwi","le",R.drawable.kiwi));
-        fruits.add(new Thing("Le citron","le",R.drawable.leomn));
-        fruits.add(new Thing("Le melon","le",R.drawable.melon));
-        fruits.add(new Thing("L'orange","l'",R.drawable.orange_2));
-        fruits.add(new Thing("L'ananas","l'",R.drawable.pineapple));
-        fruits.add(new Thing("La fraise","la",R.drawable.strawberry));
-        fruits.add(new Thing("La pastèque","la",R.drawable.watermelon_2));
-
+        fruits.add(new Thing(getString(R.string.apple),"la",R.drawable.apple));
+        fruits.add(new Thing(getString(R.string.banana),"la",R.drawable.banana));
+        fruits.add(new Thing(getString(R.string.berries),"la",R.drawable.berries));
+        fruits.add(new Thing(getString(R.string.cherry),"la",R.drawable.cherry));
+        fruits.add(new Thing(getString(R.string.grapes),"le",R.drawable.grapes));
+        fruits.add(new Thing(getString(R.string.grenade),"la",R.drawable.grenade));
+        fruits.add(new Thing(getString(R.string.coconut),"la",R.drawable.coconut));
+        fruits.add(new Thing(getString(R.string.kiwi),"le",R.drawable.kiwi));
+        fruits.add(new Thing(getString(R.string.lemon),"le",R.drawable.leomn));
+        fruits.add(new Thing(getString(R.string.melon),"le",R.drawable.melon));
+        fruits.add(new Thing(getString(R.string.orange),"l'",R.drawable.orange_2));
+        fruits.add(new Thing(getString(R.string.pineapple),"l'",R.drawable.pineapple));
+        fruits.add(new Thing(getString(R.string.strawberry),"la",R.drawable.strawberry));
+        fruits.add(new Thing(getString(R.string.watermelon),"la",R.drawable.watermelon_2));
+        //Resources recources = getResources();
+        //View view = findViewById(R.id.learn_layout);
         fruitViewPager.setAdapter(new Adapter(fruits));
         fruitViewPager.setClipChildren(false);
         fruitViewPager.setClipToPadding(false);
@@ -58,6 +60,7 @@ public class LearnFruits extends AppCompatActivity {
         });
 
         fruitViewPager.setPageTransformer(compositePageTransformer);
+
     }
 
     @Override

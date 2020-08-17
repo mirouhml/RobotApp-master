@@ -64,16 +64,18 @@
                         android:layout_margin="16dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:src="@drawable/psychology"
                             android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
-                            android:text="Calcul mental"
+                            android:text="@string/mental_calculations"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -108,13 +110,15 @@
                         android:layout_margin="16dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:src="@drawable/robot"
                             android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:text="@string/free_movement"
@@ -150,13 +154,15 @@
                         android:layout_margin="16dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:src="@drawable/book"
                             android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:text="@string/learning"
@@ -193,13 +199,15 @@
                         android:layout_margin="16dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:src="@drawable/eye"
                             android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:text="@string/hidden_objects"

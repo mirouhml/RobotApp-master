@@ -27,52 +27,52 @@
         <activity
             android:name=".LearnAnimals"
             android:configChanges="orientation"
-            android:label="Animaux"
+            android:label="@string/animals"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LearnVegetables"
             android:configChanges="orientation"
-            android:label="Légumes"
+            android:label="@string/vegetables"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LearnFruits"
             android:configChanges="orientation"
-            android:label="Fruits"
+            android:label="@string/fruits"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Learn"
             android:configChanges="orientation"
-            android:label="Apprentissage"
+            android:label="@string/learning"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForAnimals"
             android:configChanges="orientation"
-            android:label="Les animaux"
+            android:label="@string/animals"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForVegetables"
             android:configChanges="orientation"
-            android:label="Les légumes"
+            android:label="@string/vegetables"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForFruits"
             android:configChanges="orientation"
-            android:label="Les fruits"
+            android:label="@string/fruits"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MentalCalculations"
             android:configChanges="orientation"
-            android:label="Calcul Mental"
+            android:label="@string/mental_calculations"
             android:screenOrientation="portrait" />
         <activity
             android:name=".FreeMovement"
             android:configChanges="orientation"
-            android:label="Déplacement Libre"
+            android:label="@string/free_movement"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForObject"
             android:configChanges="orientation"
-            android:label="Objets cachés"
+            android:label="@string/hidden_objects"
             android:screenOrientation="portrait" />
     </application>
 
