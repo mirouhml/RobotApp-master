@@ -10,22 +10,31 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class LearnFruits extends AppCompatActivity {
-
+    boolean playing = false;
+    TextToSpeech t2s;
+    String text;
+    ImageView play;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_fruits);
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        play = findViewById(R.id.play);
         ViewPager2 fruitViewPager = findViewById(R.id.viewPager);
         List<Thing> fruits = new ArrayList<>();
         fruits.add(new Thing(getString(R.string.apple),"la",R.drawable.apple));
@@ -60,6 +69,43 @@ public class LearnFruits extends AppCompatActivity {
         });
 
         fruitViewPager.setPageTransformer(compositePageTransformer);
+        t2s=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                        @Override
+                        public void onDone(String utteranceId) {
+                            play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+                            playing = false;
+                        }
+
+                        @Override
+                        public void onError(String utteranceId) {
+                        }
+
+                        @Override
+                        public void onStart(String utteranceId) {
+                        }
+                    });
+                    if(Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
+                        t2s.setLanguage(Locale.ENGLISH);
+                    else
+                        t2s.setLanguage(Locale.FRENCH);
+                }
+            }
+        });
+        fruitViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                text = fruits.get(position).getNAme();
+                play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+                t2s.stop();
+                playing = false;
+            }
+
+        });
 
     }
 
@@ -72,5 +118,20 @@ public class LearnFruits extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void play(View view) {
+        Bundle params = new Bundle();
+        params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
+        if (!playing){
+            play.setImageResource(R.drawable.baseline_pause_circle_filled_white_48);
+            t2s.speak(text, TextToSpeech.QUEUE_FLUSH, params,"Robot4Kids");
+            playing = true;
+        }
+        else {
+            t2s.stop();
+            play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+            playing = false;
+        }
     }
 }

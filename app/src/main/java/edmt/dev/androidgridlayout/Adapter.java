@@ -22,7 +22,6 @@ import java.util.Objects;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ThingViewHolder> {
     private List<Thing> things;
-    Context context;
     //Resources resources;
    // View view;
     public Adapter(List<Thing> things/*, Resources resources, View view*/){
