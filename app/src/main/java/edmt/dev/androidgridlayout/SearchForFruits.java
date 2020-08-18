@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -259,7 +260,11 @@ public class SearchForFruits extends AppCompatActivity {
                 break;
             }
             case "French":{
-                fruitTextView.setText("Trouver "+fruits.get(theFruit).getNAme().toLowerCase());
+                String str = fruits.get(theFruit).getGender();
+                if (str.equals("l'"))
+                    fruitTextView.setText("Trouver "+str+fruits.get(theFruit).getNAme().toLowerCase());
+                else
+                    fruitTextView.setText("Trouver "+str+" "+fruits.get(theFruit).getNAme().toLowerCase());
                 break;
             }
             case "Arabic":{
@@ -267,6 +272,14 @@ public class SearchForFruits extends AppCompatActivity {
                     fruitTextView.setText("جِد "+fruits.get(theFruit).getNAme().toLowerCase());
                 else
                     fruitTextView.setText("جِد ال"+fruits.get(theFruit).getNAme().toLowerCase());
+                Button choose = findViewById(R.id.choose);
+                Button choose2 = findViewById(R.id.choose2);
+                Button next = findViewById(R.id.next);
+                Button next2 = findViewById(R.id.next2);
+                choose.setVisibility(View.GONE);
+                next.setVisibility(View.GONE);
+                choose2.setVisibility(View.VISIBLE);
+                next2.setVisibility(View.VISIBLE);
                 break;
             }
         }

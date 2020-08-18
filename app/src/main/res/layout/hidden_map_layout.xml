@@ -46,7 +46,7 @@
                 android:layout_alignTop="@+id/blackView"
                 android:layout_alignEnd="@+id/blackView"
                 android:layout_alignBottom="@+id/blackView"
-                android:layout_margin="15dp"
+                android:layout_margin="18dp"
                 tools:ignore="ContentDescription" />
             <ImageView
                 android:id="@+id/blackMystery"
@@ -91,7 +91,7 @@
                 android:layout_alignTop="@+id/redView"
                 android:layout_alignEnd="@+id/redView"
                 android:layout_alignBottom="@+id/redView"
-                android:layout_margin="15dp"
+                android:layout_margin="18dp"
                 tools:ignore="ContentDescription" />
             <ImageView
                 android:id="@+id/redMystery"
@@ -134,7 +134,7 @@
                 android:layout_alignTop="@+id/yellowView"
                 android:layout_alignEnd="@+id/yellowView"
                 android:layout_alignBottom="@+id/yellowView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/yellowMystery"
                 android:layout_width="wrap_content"
@@ -180,7 +180,7 @@
                 android:layout_alignTop="@+id/whiteView"
                 android:layout_alignEnd="@+id/whiteView"
                 android:layout_alignBottom="@+id/whiteView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/whiteMystery"
                 android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                 android:layout_alignTop="@+id/purpleView"
                 android:layout_alignEnd="@+id/purpleView"
                 android:layout_alignBottom="@+id/purpleView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/purpleMystery"
                 android:layout_width="wrap_content"
@@ -260,7 +260,7 @@
                 android:layout_alignTop="@+id/pinkView"
                 android:layout_alignEnd="@+id/pinkView"
                 android:layout_alignBottom="@+id/pinkView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/pinkMystery"
                 android:layout_width="wrap_content"
@@ -307,7 +307,7 @@
                 android:layout_alignTop="@+id/blueView"
                 android:layout_alignEnd="@+id/blueView"
                 android:layout_alignBottom="@+id/blueView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/blueMystery"
                 android:layout_width="wrap_content"
@@ -347,7 +347,7 @@
                 android:layout_alignTop="@+id/greenView"
                 android:layout_alignEnd="@+id/greenView"
                 android:layout_alignBottom="@+id/greenView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/greenMystery"
                 android:layout_width="wrap_content"
@@ -389,7 +389,7 @@
                 android:layout_alignTop="@+id/grayView"
                 android:layout_alignEnd="@+id/grayView"
                 android:layout_alignBottom="@+id/grayView"
-                android:layout_margin="15dp" />
+                android:layout_margin="18dp" />
             <ImageView
                 android:id="@+id/grayMystery"
                 android:layout_width="wrap_content"

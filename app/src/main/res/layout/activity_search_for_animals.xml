@@ -37,6 +37,19 @@
                 android:layout_gravity="center"
                 android:layout_margin="20dp">
                 <Button
+                    android:id="@+id/next2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:theme="@style/AppTheme.Button"
+                    android:visibility="gone"
+                    android:onClick="clickNext"
+                    tools:ignore="ButtonStyle" />
+                <Button
                     android:id="@+id/choose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,6 +62,7 @@
                     android:onClick="clickChoose"
                     tools:ignore="ButtonStyle" />
                 <Button
+                    android:id="@+id/next"
                     android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,6 +73,20 @@
                     android:paddingRight="10dp"
                     android:theme="@style/AppTheme.Button"
                     android:onClick="clickNext"
+                    tools:ignore="ButtonStyle" />
+                <Button
+                    android:id="@+id/choose2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/confirm_answer"
+                    android:layout_marginStart="20dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="gone"
+                    android:theme="@style/AppTheme.Button"
+                    android:onClick="clickChoose"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
             <EditText

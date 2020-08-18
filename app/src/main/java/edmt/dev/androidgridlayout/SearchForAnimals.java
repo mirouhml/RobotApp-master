@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -291,7 +292,11 @@ public class SearchForAnimals extends AppCompatActivity {
                 break;
             }
             case "French":{
-                animalTextView.setText("Trouver "+animals.get(theAnimal).getNAme().toLowerCase());
+                String str = animals.get(theAnimal).getGender();
+                if (str.equals("l'"))
+                    animalTextView.setText("Trouver "+str+animals.get(theAnimal).getNAme().toLowerCase());
+                else
+                    animalTextView.setText("Trouver "+str+" "+animals.get(theAnimal).getNAme().toLowerCase());
                 break;
             }
             case "Arabic":{
@@ -299,6 +304,14 @@ public class SearchForAnimals extends AppCompatActivity {
                     animalTextView.setText("جِد "+animals.get(theAnimal).getNAme().toLowerCase());
                 else
                     animalTextView.setText("جِد ال"+animals.get(theAnimal).getNAme().toLowerCase());
+                Button choose = findViewById(R.id.choose);
+                Button choose2 = findViewById(R.id.choose2);
+                Button next = findViewById(R.id.next);
+                Button next2 = findViewById(R.id.next2);
+                choose.setVisibility(View.GONE);
+                next.setVisibility(View.GONE);
+                choose2.setVisibility(View.VISIBLE);
+                next2.setVisibility(View.VISIBLE);
                 break;
             }
         }

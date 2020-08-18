@@ -90,4 +90,7 @@
     <string name="english">الإنجليزية</string>
     <string name="french">الفرنسية</string>
     <string name="arabic">العربية</string>
+    <string name="apprend_les_noms_des_fruits">تعرف على أسماء الفواكه</string>
+    <string name="apprend_les_noms_des_legumes">تعرف على أسماء الخضر</string>
+    <string name="apprend_les_noms_des_animaux">تعرف على أسماء الحيوانات</string>
 </resources>

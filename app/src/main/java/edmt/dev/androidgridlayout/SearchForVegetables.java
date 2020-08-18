@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -258,7 +259,11 @@ public class SearchForVegetables extends AppCompatActivity {
                 break;
             }
             case "French":{
-                vegetableTextView.setText("Trouver "+vegetables.get(theVegetable).getNAme().toLowerCase());
+                String str = vegetables.get(theVegetable).getGender();
+                if (str.equals("l'"))
+                    vegetableTextView.setText("Trouver "+str+vegetables.get(theVegetable).getNAme().toLowerCase());
+                else
+                    vegetableTextView.setText("Trouver "+str+" "+vegetables.get(theVegetable).getNAme().toLowerCase());
                 break;
             }
             case "Arabic":{
@@ -266,6 +271,14 @@ public class SearchForVegetables extends AppCompatActivity {
                     vegetableTextView.setText("جِد "+vegetables.get(theVegetable).getNAme().toLowerCase());
                 else
                     vegetableTextView.setText("جِد ال"+vegetables.get(theVegetable).getNAme().toLowerCase());
+                Button choose = findViewById(R.id.choose);
+                Button choose2 = findViewById(R.id.choose2);
+                Button next = findViewById(R.id.next);
+                Button next2 = findViewById(R.id.next2);
+                choose.setVisibility(View.GONE);
+                next.setVisibility(View.GONE);
+                choose2.setVisibility(View.VISIBLE);
+                next2.setVisibility(View.VISIBLE);
                 break;
             }
         }

@@ -15,6 +15,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,10 +97,16 @@ public class LearnVegetables extends AppCompatActivity {
                         public void onStart(String utteranceId) {
                         }
                     });
-                    if(Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
-                        t2s.setLanguage(Locale.ENGLISH);
-                    else
-                        t2s.setLanguage(Locale.FRENCH);
+                    switch(language){
+                        case "English":{
+                            t2s.setLanguage(Locale.ENGLISH);
+                            break;
+                        }
+                        case "French":{
+                            t2s.setLanguage(Locale.FRENCH);
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -115,6 +122,9 @@ public class LearnVegetables extends AppCompatActivity {
             }
 
         });
+
+        TextView learnLabel = findViewById(R.id.learnLabel);
+        learnLabel.setText(getText(R.string.apprend_les_noms_des_legumes));
     }
 
     @Override

@@ -90,4 +90,7 @@
     <string name="english">English</string>
     <string name="french">French</string>
     <string name="arabic">Arabic</string>
+    <string name="apprend_les_noms_des_fruits">Learn the names of fruits</string>
+    <string name="apprend_les_noms_des_legumes">Learn the names of vegetables</string>
+    <string name="apprend_les_noms_des_animaux">Learn the names of animals</string>
 </resources>

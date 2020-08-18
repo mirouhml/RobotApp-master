@@ -15,6 +15,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +33,6 @@ public class LearnAnimals extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_animals);
-        if(Locale.getDefault().getLanguage().equals(new Locale("ar").getLanguage())){
-            play.setVisibility(View.INVISIBLE);
-        }
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.animals);
@@ -125,10 +123,16 @@ public class LearnAnimals extends AppCompatActivity {
                         public void onStart(String utteranceId) {
                         }
                     });
-                    if(Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
-                        t2s.setLanguage(Locale.ENGLISH);
-                    else if(Locale.getDefault().getLanguage().equals(new Locale("fr").getLanguage()))
-                        t2s.setLanguage(Locale.FRENCH);
+                    switch(language){
+                        case "English":{
+                            t2s.setLanguage(Locale.ENGLISH);
+                            break;
+                        }
+                        case "French":{
+                            t2s.setLanguage(Locale.FRENCH);
+                            break;
+                        }
+                    }
 
                 }
             }
@@ -145,6 +149,9 @@ public class LearnAnimals extends AppCompatActivity {
             }
 
         });
+
+        TextView learnLabel = findViewById(R.id.learnLabel);
+        learnLabel.setText(getText(R.string.apprend_les_noms_des_animaux));
     }
 
     @Override
