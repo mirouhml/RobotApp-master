@@ -41,6 +41,24 @@ public class HomePage extends AppCompatActivity {
             mBluetoothAdapter.enable();
         }
         gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        prefEditor = gameSettings.edit();
+        switch (Locale.getDefault().getLanguage()){
+            case "en":{
+                prefEditor.putString("Language", "English");
+                prefEditor.apply();
+                break;
+            }
+            case "fr":{
+                prefEditor.putString("Language", "French");
+                prefEditor.apply();
+                break;
+            }
+            case "ar":{
+                prefEditor.putString("Language", "Arabic");
+                prefEditor.apply();
+                break;
+            }
+        }
 
 
     }

@@ -89,7 +89,7 @@ public class LearnFruits extends AppCompatActivity {
                     t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                         @Override
                         public void onDone(String utteranceId) {
-                            play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+                            play.setImageResource(R.drawable.play_button);
                             playing = false;
                         }
 
@@ -119,7 +119,7 @@ public class LearnFruits extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 text = fruits.get(position).getNAme();
-                play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+                play.setImageResource(R.drawable.play_button);
                 t2s.stop();
                 playing = false;
             }
@@ -143,13 +143,13 @@ public class LearnFruits extends AppCompatActivity {
         Bundle params = new Bundle();
         params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
         if (!playing){
-            play.setImageResource(R.drawable.baseline_pause_circle_filled_white_48);
+            play.setImageResource(R.drawable.pause_button);
             t2s.speak(text, TextToSpeech.QUEUE_FLUSH, params,"Robot4Kids");
             playing = true;
         }
         else {
             t2s.stop();
-            play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+            play.setImageResource(R.drawable.play_button);
             playing = false;
         }
     }

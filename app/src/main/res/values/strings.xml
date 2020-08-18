@@ -98,4 +98,5 @@
     <string name="apprend_les_noms_des_fruits">Apprend les noms des fruits</string>
     <string name="apprend_les_noms_des_legumes">Apprend les noms des légumes</string>
     <string name="apprend_les_noms_des_animaux">Apprend les noms des animaux</string>
+    <string name="app_name" translatable="false">Robot4Kids</string>
 </resources>

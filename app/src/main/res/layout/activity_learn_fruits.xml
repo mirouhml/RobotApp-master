@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="5"
-    android:background="#0056a0"
+    android:background="#ffffff"
     android:id="@+id/learn_layout">
     <TextView
         android:id="@+id/learnLabel"
@@ -17,7 +17,7 @@
         android:layout_marginLeft="10dp"
         android:text="@string/apprend_les_noms_des_fruits"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="30sp"
         android:layout_weight="1"/>
     <LinearLayout
@@ -42,7 +42,7 @@
         android:layout_weight="1"
         android:paddingTop="5dp"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/baseline_play_circle_filled_white_48"
+        android:src="@drawable/play_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view"
         android:onClick="play"/>

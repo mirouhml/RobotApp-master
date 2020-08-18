@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -19,7 +20,7 @@ public class SetLanguage extends AppCompatActivity {
         setContentView(R.layout.activity_set_language);
         SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
         String language = gameSettings.getString("Language","DEFAULT");
-        assert language != null;
+        if (language!=null)
         switch (language){
             case "English":{
                 setLocale("en");
@@ -33,8 +34,12 @@ public class SetLanguage extends AppCompatActivity {
                 setLocale("ar");
                 break;
             }
+            default:{
+                Intent refresh = new Intent(this, HomePage.class);
+                startActivity(refresh);
+                finish();
+            }
         }
-
     }
 
     private void setLocale(String lang) {

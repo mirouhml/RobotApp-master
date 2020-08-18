@@ -38,6 +38,7 @@ public class LearnVegetables extends AppCompatActivity {
         String language = gameSettings.getString("Language","DEFAULT");
         play = findViewById(R.id.play);
         assert language != null;
+        Toast.makeText(this, "00"+language+"00", Toast.LENGTH_SHORT).show();
         if(language.equals("Arabic")){
             play.setVisibility(View.INVISIBLE);
         }
