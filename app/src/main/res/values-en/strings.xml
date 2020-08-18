@@ -8,7 +8,6 @@
     <string name="fruits">Fruits</string>
     <string name="vegetables">Vegetables</string>
     <string name="find">Find</string>
-    <string name="next_fruit">Next fruit</string>
     <string name="welcome">Welcome</string>
     <string name="free_movement">Free movement</string>
     <string name="learning">Learning</string>
@@ -88,4 +87,7 @@
     <string name="whale">Whale</string>
     <string name="fish">Fish</string>
     <string name="mental_calculations">Mental Calculation</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="arabic">Arabic</string>
 </resources>

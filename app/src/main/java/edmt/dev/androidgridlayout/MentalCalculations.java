@@ -58,6 +58,7 @@ public class MentalCalculations extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mental_calculations);
+        setTitle(R.string.mental_calculations);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

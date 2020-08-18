@@ -5,11 +5,11 @@
     <string name="operation">Opération</string>
     <string name="next_operation">Opération suivante</string>
     <string name="message">Essaie encore!</string>
-    <string name="question_mark"  translatable="false">\?</string>
-    <string name="equal_mark"  translatable="false">=</string>
-    <string name="second_number"  translatable="false">3</string>
-    <string name="operator"  translatable="false">+</string>
-    <string name="first_number"  translatable="false">5</string>
+    <string name="question_mark" translatable="false">\?</string>
+    <string name="equal_mark" translatable="false">=</string>
+    <string name="second_number" translatable="false">3</string>
+    <string name="operator" translatable="false">+</string>
+    <string name="first_number" translatable="false">5</string>
     <string name="loading">Chargement..</string>
     <string name="congrats">Bravo!</string>
     <string name="correct_answer">C\'était la bonne réponse.</string>
@@ -18,7 +18,6 @@
     <string name="fruits">Les fruits</string>
     <string name="vegetables">Les légumes</string>
     <string name="find"> Trouver</string>
-    <string name="next_fruit">fruit suivant</string>
     <string name="welcome">Bienvenue</string>
     <string name="free_movement">Déplacement libre</string>
     <string name="learning">Apprentissage</string>
@@ -93,4 +92,7 @@
     <string name="squid">Le calamar</string>
     <string name="whale">La baleine</string>
     <string name="mental_calculations">Calcul mental</string>
+    <string name="english">Anglais</string>
+    <string name="french">Français</string>
+    <string name="arabic">Arabe</string>
 </resources>

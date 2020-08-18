@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -71,6 +72,7 @@ public class SearchForAnimals extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_animals);
+        setTitle(R.string.animals);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -280,10 +282,26 @@ public class SearchForAnimals extends AppCompatActivity {
             if (map[j]!=-1)
                 setTile(j);
         }
-        if (Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
-            animalTextView.setText(" the "+ animals.get(theAnimal).getNAme().toLowerCase());
-        else
-            animalTextView.setText(" "+ animals.get(theAnimal).getNAme().toLowerCase());
+        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        String language = gameSettings.getString("Language","DEFAULT");
+        assert language != null;
+        switch(language){
+            case "English":{
+                animalTextView.setText("Find the "+animals.get(theAnimal).getNAme().toLowerCase());
+                break;
+            }
+            case "French":{
+                animalTextView.setText("Trouver "+animals.get(theAnimal).getNAme().toLowerCase());
+                break;
+            }
+            case "Arabic":{
+                if (animals.get(theAnimal).getNAme().contains(" "))
+                    animalTextView.setText("جِد "+animals.get(theAnimal).getNAme().toLowerCase());
+                else
+                    animalTextView.setText("جِد ال"+animals.get(theAnimal).getNAme().toLowerCase());
+                break;
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")

@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -32,8 +33,15 @@ public class LearnVegetables extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_vegetables);
         assert getSupportActionBar() != null;   //null check
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        String language = gameSettings.getString("Language","DEFAULT");
         play = findViewById(R.id.play);
+        assert language != null;
+        if(language.equals("Arabic")){
+            play.setVisibility(View.INVISIBLE);
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.vegetables);
         ViewPager2 vegetableViewHolder = findViewById(R.id.viewPager);
         List<Thing> vegetables = new ArrayList<>();
         vegetables.add(new Thing(getString(R.string.carrot),"la",R.drawable.carrot));

@@ -29,6 +29,7 @@ public class FreeMovement extends AppCompatActivity {
         setContentView(R.layout.activity_free_movement);
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.free_movement);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

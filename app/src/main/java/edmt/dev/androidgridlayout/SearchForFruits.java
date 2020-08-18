@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +74,7 @@ public class SearchForFruits extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_fruits);
+        setTitle(R.string.fruits);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -247,10 +250,27 @@ public class SearchForFruits extends AppCompatActivity {
             if (map[j]!=-1)
                 setTile(j);
         }
-        if (Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
-            fruitTextView.setText(" the "+fruits.get(theFruit).getNAme().toLowerCase());
-        else
-            fruitTextView.setText(" "+fruits.get(theFruit).getNAme().toLowerCase());
+        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        String language = gameSettings.getString("Language","DEFAULT");
+        assert language != null;
+        switch(language){
+            case "English":{
+                fruitTextView.setText("Find the "+fruits.get(theFruit).getNAme().toLowerCase());
+                break;
+            }
+            case "French":{
+                fruitTextView.setText("Trouver "+fruits.get(theFruit).getNAme().toLowerCase());
+                break;
+            }
+            case "Arabic":{
+                if (fruits.get(theFruit).getNAme().contains(" "))
+                    fruitTextView.setText("جِد "+fruits.get(theFruit).getNAme().toLowerCase());
+                else
+                    fruitTextView.setText("جِد ال"+fruits.get(theFruit).getNAme().toLowerCase());
+                break;
+            }
+        }
+
     }
 
     @SuppressLint("SetTextI18n")

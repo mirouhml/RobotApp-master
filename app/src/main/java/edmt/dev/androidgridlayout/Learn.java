@@ -20,7 +20,8 @@ public class Learn extends AppCompatActivity {
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         TextView textView = findViewById(R.id.textHiddenObjects);
-        textView.setText("Apprentissage");
+        textView.setText(getString(R.string.learning));
+        setTitle(R.string.learning);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

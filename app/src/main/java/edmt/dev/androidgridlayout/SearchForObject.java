@@ -15,6 +15,7 @@ public class SearchForObject extends AppCompatActivity {
         setContentView(R.layout.search_for_object);
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.hidden_objects);
     }
 
     @Override

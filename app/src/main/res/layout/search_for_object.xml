@@ -125,7 +125,7 @@
 
                     <TextView
                         android:text="@string/vegetables"
-                        android:textAlignment="center"
+                        android:layout_gravity="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -171,7 +171,7 @@
 
                     <TextView
                         android:text="@string/animals"
-                        android:textAlignment="center"
+                        android:layout_gravity="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"

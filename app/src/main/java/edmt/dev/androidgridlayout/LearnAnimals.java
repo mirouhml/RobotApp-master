@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -31,8 +32,19 @@ public class LearnAnimals extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_animals);
+        if(Locale.getDefault().getLanguage().equals(new Locale("ar").getLanguage())){
+            play.setVisibility(View.INVISIBLE);
+        }
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.animals);
+        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        String language = gameSettings.getString("Language","DEFAULT");
+        play = findViewById(R.id.play);
+        assert language != null;
+        if(language.equals("Arabic")){
+            play.setVisibility(View.INVISIBLE);
+        }
         play = findViewById(R.id.play);
         ViewPager2 animalViewHolder = findViewById(R.id.viewPager);
         List<Thing> animals = new ArrayList<>();
@@ -115,8 +127,9 @@ public class LearnAnimals extends AppCompatActivity {
                     });
                     if(Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
                         t2s.setLanguage(Locale.ENGLISH);
-                    else
+                    else if(Locale.getDefault().getLanguage().equals(new Locale("fr").getLanguage()))
                         t2s.setLanguage(Locale.FRENCH);
+
                 }
             }
         });

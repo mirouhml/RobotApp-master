@@ -14,10 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".HomePage"
-            android:configChanges="orientation"
-            android:label="Robot4Kids"
-            android:screenOrientation="portrait" >
+        <activity android:name=".SetLanguage"
+            android:configChanges="locale|orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,53 +24,58 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".HomePage"
+            android:configChanges="locale|orientation"
+            android:label="Robot4Kids"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".LearnAnimals"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/animals"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LearnVegetables"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/vegetables"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LearnFruits"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/fruits"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Learn"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/learning"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForAnimals"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/animals"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForVegetables"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/vegetables"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForFruits"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/fruits"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MentalCalculations"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/mental_calculations"
             android:screenOrientation="portrait" />
         <activity
             android:name=".FreeMovement"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/free_movement"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchForObject"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:label="@string/hidden_objects"
             android:screenOrientation="portrait" />
     </application>

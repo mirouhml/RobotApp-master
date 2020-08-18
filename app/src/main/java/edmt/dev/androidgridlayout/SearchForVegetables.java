@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -71,6 +72,7 @@ public class SearchForVegetables extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_vegetables);
+        setTitle(R.string.vegetables);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -247,10 +249,26 @@ public class SearchForVegetables extends AppCompatActivity {
             if (map[j]!=-1)
                 setTile(j);
         }
-        if (Locale.getDefault().getLanguage().equals(new Locale("en").getLanguage()))
-            vegetableTextView.setText(" the "+ vegetables.get(theVegetable).getNAme().toLowerCase());
-        else
-            vegetableTextView.setText(" "+ vegetables.get(theVegetable).getNAme().toLowerCase());
+        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        String language = gameSettings.getString("Language","DEFAULT");
+        assert language != null;
+        switch(language){
+            case "English":{
+                vegetableTextView.setText("Find the "+vegetables.get(theVegetable).getNAme().toLowerCase());
+                break;
+            }
+            case "French":{
+                vegetableTextView.setText("Trouver "+vegetables.get(theVegetable).getNAme().toLowerCase());
+                break;
+            }
+            case "Arabic":{
+                if (vegetables.get(theVegetable).getNAme().contains(" "))
+                    vegetableTextView.setText("جِد "+vegetables.get(theVegetable).getNAme().toLowerCase());
+                else
+                    vegetableTextView.setText("جِد ال"+vegetables.get(theVegetable).getNAme().toLowerCase());
+                break;
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")

@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next_operation"
+        android:text="@string/next"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:paddingLeft="10dp"

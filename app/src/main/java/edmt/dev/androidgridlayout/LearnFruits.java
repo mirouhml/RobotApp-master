@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -33,7 +34,18 @@ public class LearnFruits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_fruits);
         assert getSupportActionBar() != null;   //null check
+        if(Locale.getDefault().getLanguage().equals(new Locale("ar").getLanguage())){
+            play.setVisibility(View.INVISIBLE);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.fruits);
+        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
+        String language = gameSettings.getString("Language","DEFAULT");
+        play = findViewById(R.id.play);
+        assert language != null;
+        if(language.equals("Arabic")){
+            play.setVisibility(View.INVISIBLE);
+        }
         play = findViewById(R.id.play);
         ViewPager2 fruitViewPager = findViewById(R.id.viewPager);
         List<Thing> fruits = new ArrayList<>();
