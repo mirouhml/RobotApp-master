@@ -38,9 +38,10 @@ public class LearnVegetables extends AppCompatActivity {
         String language = gameSettings.getString("Language","DEFAULT");
         play = findViewById(R.id.play);
         assert language != null;
-        Toast.makeText(this, "00"+language+"00", Toast.LENGTH_SHORT).show();
         if(language.equals("Arabic")){
-            play.setVisibility(View.INVISIBLE);
+            play.setVisibility(View.GONE);
+            ImageView playPlaceholder = findViewById(R.id.placeholder);
+            playPlaceholder.setVisibility(View.VISIBLE);
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.vegetables);
@@ -52,14 +53,21 @@ public class LearnVegetables extends AppCompatActivity {
         vegetables.add(new Thing(getString(R.string.cucumber),"le",R.drawable.cucumber));
         vegetables.add(new Thing(getString(R.string.eggplant),"l'",R.drawable.eggplant));
         vegetables.add(new Thing(getString(R.string.garlic),"l'",R.drawable.garlic));
-        vegetables.add(new Thing(getString(R.string.onion),"l'",R.drawable.onion_2));
         vegetables.add(new Thing(getString(R.string.peas),"les",R.drawable.peas));
         vegetables.add(new Thing(getString(R.string.potato),"la",R.drawable.potato));
-        vegetables.add(new Thing(getString(R.string.pumpkin),"la",R.drawable.pumpkin));
-        vegetables.add(new Thing(getString(R.string.tomato),"la",R.drawable.tomato));
         vegetables.add(new Thing(getString(R.string.radish),"le",R.drawable.radish));
         vegetables.add(new Thing(getString(R.string.lettuce),"la",R.drawable.lettuce));
         vegetables.add(new Thing(getString(R.string.broccoli),"le",R.drawable.broccoli));
+        vegetables.add(new Thing(getString(R.string.beet),"le",R.drawable.beet));
+        vegetables.add(new Thing(getString(R.string.cabbage),"le",R.drawable.cabbage));
+        vegetables.add(new Thing(getString(R.string.cauliflower),"le",R.drawable.cauliflower));
+        vegetables.add(new Thing(getString(R.string.chili_pepper),"le",R.drawable.chili_pepper));
+        vegetables.add(new Thing(getString(R.string.ginger),"le",R.drawable.ginger));
+        vegetables.add(new Thing(getString(R.string.horseradish),"le",R.drawable.horseradish));
+        vegetables.add(new Thing(getString(R.string.olives),"l'",R.drawable.olives));
+        vegetables.add(new Thing(getString(R.string.spinach),"l'",R.drawable.spinach));
+        vegetables.add(new Thing(getString(R.string.turnip),"le",R.drawable.turnip));
+        vegetables.add(new Thing(getString(R.string.zucchini),"la",R.drawable.zucchini));
 
         //Resources recources = getResources();
         //View view = findViewById(R.id.learn_layout);
@@ -86,7 +94,7 @@ public class LearnVegetables extends AppCompatActivity {
                     t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                         @Override
                         public void onDone(String utteranceId) {
-                            play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+                            play.setImageResource(R.drawable.play_button);
                             playing = false;
                         }
 
@@ -117,7 +125,7 @@ public class LearnVegetables extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 text = vegetables.get(position).getNAme();
-                play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+                play.setImageResource(R.drawable.play_button);
                 playing = false;
                 t2s.stop();
             }
@@ -143,13 +151,13 @@ public class LearnVegetables extends AppCompatActivity {
         Bundle params = new Bundle();
         params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
         if (!playing){
-            play.setImageResource(R.drawable.baseline_pause_circle_filled_white_48);
+            play.setImageResource(R.drawable.pause_button);
             t2s.speak(text, TextToSpeech.QUEUE_FLUSH, params,"Robot4Kids");
             playing = true;
         }
         else {
             t2s.stop();
-            play.setImageResource(R.drawable.baseline_play_circle_filled_white_48);
+            play.setImageResource(R.drawable.play_button);
             playing = false;
         }
     }

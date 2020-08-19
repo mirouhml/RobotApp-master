@@ -111,14 +111,21 @@ public class SearchForVegetables extends AppCompatActivity {
         vegetables.add(new Thing(getString(R.string.cucumber),"le",R.drawable.cucumber));
         vegetables.add(new Thing(getString(R.string.eggplant),"l'",R.drawable.eggplant));
         vegetables.add(new Thing(getString(R.string.garlic),"l'",R.drawable.garlic));
-        vegetables.add(new Thing(getString(R.string.onion),"l'",R.drawable.onion_2));
         vegetables.add(new Thing(getString(R.string.peas),"les",R.drawable.peas));
         vegetables.add(new Thing(getString(R.string.potato),"la",R.drawable.potato));
-        vegetables.add(new Thing(getString(R.string.pumpkin),"la",R.drawable.pumpkin));
-        vegetables.add(new Thing(getString(R.string.tomato),"la",R.drawable.tomato));
         vegetables.add(new Thing(getString(R.string.radish),"le",R.drawable.radish));
         vegetables.add(new Thing(getString(R.string.lettuce),"la",R.drawable.lettuce));
         vegetables.add(new Thing(getString(R.string.broccoli),"le",R.drawable.broccoli));
+        vegetables.add(new Thing(getString(R.string.beet),"le",R.drawable.beet));
+        vegetables.add(new Thing(getString(R.string.cabbage),"le",R.drawable.cabbage));
+        vegetables.add(new Thing(getString(R.string.cauliflower),"le",R.drawable.cauliflower));
+        vegetables.add(new Thing(getString(R.string.chili_pepper),"le",R.drawable.chili_pepper));
+        vegetables.add(new Thing(getString(R.string.ginger),"le",R.drawable.ginger));
+        vegetables.add(new Thing(getString(R.string.horseradish),"le",R.drawable.horseradish));
+        vegetables.add(new Thing(getString(R.string.olives),"l'",R.drawable.olives));
+        vegetables.add(new Thing(getString(R.string.spinach),"l'",R.drawable.spinach));
+        vegetables.add(new Thing(getString(R.string.turnip),"le",R.drawable.turnip));
+        vegetables.add(new Thing(getString(R.string.zucchini),"la",R.drawable.zucchini));
 
 
         blackImageView = findViewById(R.id.imageBlackView);
