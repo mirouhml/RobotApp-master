@@ -125,7 +125,7 @@
     <string name="spinach">سبانخ</string>
     <string name="turnip">لفت نبات</string>
     <string name="zucchini">كوسى</string>
-    <string name="ant">تملة</string>
+    <string name="ant">نملة</string>
     <string name="anteater">آكل النمل</string>
     <string name="arctic_fox">ثعلب قطبي</string>
     <string name="bear">دب</string>
@@ -135,7 +135,7 @@
     <string name="chameleon">حرباء</string>
     <string name="cheetah">فهد</string>
     <string name="clown_fish">سمكة المهرج</string>
-    <string name="cougar">أسد امريكي</string>
+    <string name="cougar">أسد أمريكي</string>
     <string name="cow">بقرة</string>
     <string name="crocodile">تمساح</string>
     <string name="eagle">نسر</string>
@@ -178,4 +178,5 @@
     <string name="wolf">ذئب</string>
     <string name="yak">ثور التبيت</string>
     <string name="zebra">حمار وحشي</string>
+    <string name="words_game">لعبة الكلمات</string>
 </resources>

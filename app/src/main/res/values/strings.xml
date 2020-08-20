@@ -105,8 +105,8 @@
     <string name="chestnut">Châtaigne</string>
     <string name="fig">Figue</string>
     <string name="gooseberry">Groseille à maquereau</string>
-    <string name="grapefruit">pamplemousse</string>
-    <string name="guava">goyave</string>
+    <string name="grapefruit">Pamplemousse</string>
+    <string name="guava">Goyave</string>
     <string name="kumquat">Kumquat</string>
     <string name="lime">Citron vert</string>
     <string name="mango">Mangue</string>
@@ -184,4 +184,5 @@
     <string name="wolf">Loup</string>
     <string name="yak">Yak</string>
     <string name="zebra">Zèbre</string>
+    <string name="words_game">Jeu de mots</string>
 </resources>

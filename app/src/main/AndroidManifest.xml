@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".SetLanguage"
+        <activity android:name=".MissingOneLetter"
+            android:configChanges="locale|orientation"
+            android:label="@string/words_game"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SetLanguage"
             android:configChanges="locale|orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -27,7 +32,7 @@
             android:name=".HomePage"
             android:configChanges="locale|orientation"
             android:label="Robot4Kids"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LearnAnimals"
             android:configChanges="locale|orientation"

@@ -115,7 +115,7 @@ public class LearnAnimals extends AppCompatActivity {
         animals.add(new Thing(getString(R.string.otter),"la",R.drawable.otter));
         animals.add(new Thing(getString(R.string.peacock),"le",R.drawable.peacock));
         animals.add(new Thing(getString(R.string.pigeon),"le",R.drawable.pigeon));
-        animals.add(new Thing(getString(R.string.polar_bear),"l'",R.drawable.whale));
+        animals.add(new Thing(getString(R.string.polar_bear),"l'",R.drawable.polar_bear));
         animals.add(new Thing(getString(R.string.prawn),"la",R.drawable.prawn));
         animals.add(new Thing(getString(R.string.puffer_fish),"le",R.drawable.puffer_fish));
         animals.add(new Thing(getString(R.string.raccoon),"le",R.drawable.raccoon));

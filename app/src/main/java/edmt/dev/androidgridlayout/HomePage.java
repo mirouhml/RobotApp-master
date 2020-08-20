@@ -127,4 +127,9 @@ public class HomePage extends AppCompatActivity {
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
     }
+
+    public void clickOnWordGame(View view) {
+        Intent intent = new Intent(HomePage.this, MissingOneLetter.class);
+        startActivity(intent);
+    }
 }
