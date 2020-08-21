@@ -22,7 +22,7 @@ import com.harrysoft.androidbluetoothserial.BluetoothSerialDevice;
 import com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -35,7 +35,6 @@ public class MissingOneLetter extends AppCompatActivity {
     String word;
     int theWord;
     String c;
-    int previousWord = -1;
     String firstHalf;
     String secondHalf;
     ImageView blackLocation;
@@ -61,16 +60,19 @@ public class MissingOneLetter extends AppCompatActivity {
     String [] map;
     BluetoothManager bluetoothManager;
     BluetoothAdapter mBluetoothAdapter;
+    SimpleBluetoothDeviceInterface deviceInterface;
     final LoadingDialogue dialogue = new LoadingDialogue(MissingOneLetter.this);
     String [] lettersUsed;
     final String [] englishAlpha = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
     final String [] arabicAlpha = {"غ","ظ","ض","ذ","خ","ث","ت","ش","ر","ق","ص","ف","ع","س","ن","م","ل","ك","ي","ط","ح","ز","و","ه","د","ج","ب","أ"};
+    
     TextView firstHalfTV;
     TextView secondHalfTV;
     TextView wordTV;
     TextView splitTV;
     String language;
     EditText letterET;
+    int index = 0;
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class MissingOneLetter extends AppCompatActivity {
         words = new ArrayList<>();
         setTitle(R.string.words_game);
         addWords();
+        Collections.shuffle(words);
         firstHalfTV = findViewById(R.id.first_half);
         secondHalfTV = findViewById(R.id.second_half);
         wordTV = findViewById(R.id.word);
@@ -92,6 +95,7 @@ public class MissingOneLetter extends AppCompatActivity {
             // Bluetooth is not enabled :)
             mBluetoothAdapter.enable();
         }
+
         //showing the loading view
         new AsyncTask<Void, Void, Void>(){
             @SuppressLint("StaticFieldLeak")
@@ -174,14 +178,8 @@ public class MissingOneLetter extends AppCompatActivity {
         map = new String[]{"-1","-1","-1",
                 "-1","-1","-1",
                 "-1","-1","-1"};
-        while(true){
-            theWord = new Random().nextInt(words.size());
-            if (theWord != previousWord) {
-                previousWord = theWord;
-                break;
-            }
-        }
-        word = words.get(theWord);
+        word = words.get(index);
+        index++;
         String [] stringArray = word.split("");
         c=" ";
         int splitCharacter =0;
@@ -211,9 +209,30 @@ public class MissingOneLetter extends AppCompatActivity {
 
         firstHalf = word.substring(0,splitCharacter);
         secondHalf = word.substring(splitCharacter+1);
-        Toast.makeText(this, ""+firstHalf+"+"+c+"+"+secondHalf, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+firstHalf+"+"+c+"+"+secondHalf, Toast.LENGTH_SHORT).show();
         assert language != null;
         if(language.equals("Arabic")){
+            int position;
+            char [] characters = {'غ','ظ','ض','خ','ث','ت','ش','ق','ص','ف','ع','س','ن','م','ل','ك','ي','ط','ح','ه','ج','ب'};
+            if (firstHalf.length() > 0){
+                position = firstHalf.length()-1;
+                char lastCharacter = firstHalf.charAt(position);
+                for (char chara : characters ){
+                    if (chara == lastCharacter){
+                        firstHalf = firstHalf + "ـ";
+                        break;
+                    }
+                }
+            }
+            if (secondHalf.length() > 0){
+                for (char chara : characters){
+                    if (String.valueOf(chara).equals(c)){
+                        if(secondHalf.charAt(0) != ' ')
+                            secondHalf = "ـ" + secondHalf;
+                        break;
+                    }
+                }
+            }
             firstHalfTV.setText(secondHalf);
             secondHalfTV.setText(firstHalf);
         }
@@ -285,14 +304,14 @@ public class MissingOneLetter extends AppCompatActivity {
             Toast.makeText(this, "Please place the robot on the map", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, ""+location+ " "+ map[location], Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+location+ " "+ map[location], Toast.LENGTH_SHORT).show();
         //String result = firstHalf.toLowerCase() + map[location] + secondHalf;
         if (c.toLowerCase().equals(map[location].toLowerCase())){
             firstHalfTV.setVisibility(View.GONE);
             secondHalfTV.setVisibility(View.GONE);
             splitTV.setVisibility(View.GONE);
             wordTV.setVisibility(View.VISIBLE);
-            wordTV.setText(words.get(theWord));
+            wordTV.setText(word);
             dialogue.startLoadingDialogue(R.layout.success);
         }
         else
@@ -322,7 +341,7 @@ public class MissingOneLetter extends AppCompatActivity {
     private void onConnected(BluetoothSerialDevice connectedDevice) {
         // You are now connected to this device!
         // Here you may want to retain an instance to your device:
-        SimpleBluetoothDeviceInterface deviceInterface = connectedDevice.toSimpleDeviceInterface();
+        deviceInterface = connectedDevice.toSimpleDeviceInterface();
         Toast.makeText(this, "Connected to the robot.", Toast.LENGTH_LONG).show();
         deviceInterface.sendMessage("Connected.");
         // Listen to bluetooth events
@@ -488,18 +507,18 @@ public class MissingOneLetter extends AppCompatActivity {
             }
         }
     }
-    public void clickRight(View view){ Toast.makeText(this,"Right",Toast.LENGTH_SHORT).show(); }
+    public void clickRight(View view){ deviceInterface.sendMessage("1"); }
 
     public void clickLeft(View view){
-        Toast.makeText(this,"Left",Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("1");
     }
 
     public void clickUp(View view){
-        Toast.makeText(this,"Up",Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("0");
     }
 
     public void clickDown(View view){
-        Toast.makeText(this,"Down",Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("0");
     }
 
 

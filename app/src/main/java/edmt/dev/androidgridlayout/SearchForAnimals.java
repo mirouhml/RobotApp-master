@@ -63,7 +63,7 @@ public class SearchForAnimals extends AppCompatActivity {
 
     TextView animalTextView;
     TextView message;
-
+    private SimpleBluetoothDeviceInterface deviceInterface;
     int location;
     BluetoothManager bluetoothManager;
     BluetoothAdapter mBluetoothAdapter;
@@ -266,18 +266,18 @@ public class SearchForAnimals extends AppCompatActivity {
         grayImageView.setVisibility(View.INVISIBLE);
     }
 
-    public void clickRight(View view){ Toast.makeText(this,"Right",Toast.LENGTH_SHORT).show(); }
+    public void clickRight(View view){ deviceInterface.sendMessage("1"); }
 
     public void clickLeft(View view){
-        Toast.makeText(this,"Left",Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("1");
     }
 
     public void clickUp(View view){
-        Toast.makeText(this,"Up",Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("0");
     }
 
     public void clickDown(View view){
-        Toast.makeText(this,"Down",Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("0");
     }
 
 
@@ -328,6 +328,7 @@ public class SearchForAnimals extends AppCompatActivity {
                 }
             }
         }
+
         shuffleArray(map);
         for(int j=0; j<map.length;j++){
             if (map[j]!=-1)
@@ -605,7 +606,7 @@ public class SearchForAnimals extends AppCompatActivity {
     private void onConnected(BluetoothSerialDevice connectedDevice) {
         // You are now connected to this device!
         // Here you may want to retain an instance to your device:
-        SimpleBluetoothDeviceInterface deviceInterface = connectedDevice.toSimpleDeviceInterface();
+        deviceInterface = connectedDevice.toSimpleDeviceInterface();
         Toast.makeText(this, "Connected to the robot.", Toast.LENGTH_LONG).show();
         deviceInterface.sendMessage("Connected.");
         // Listen to bluetooth events

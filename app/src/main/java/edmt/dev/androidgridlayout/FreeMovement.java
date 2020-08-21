@@ -22,6 +22,7 @@ public class FreeMovement extends AppCompatActivity {
     BluetoothManager bluetoothManager;
     BluetoothAdapter mBluetoothAdapter;
     final LoadingDialogue dialogue = new LoadingDialogue(FreeMovement.this);
+    private SimpleBluetoothDeviceInterface deviceInterface;
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +73,19 @@ public class FreeMovement extends AppCompatActivity {
     }
 
     public void clickRight(View view) {
-        Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("0");
     }
 
     public void clickLeft(View view) {
-        Toast.makeText(this, "Left", Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("0");
     }
 
     public void clickUp(View view) {
-        Toast.makeText(this, "Up", Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("1");
     }
 
     public void clickDown(View view) {
-        Toast.makeText(this, "Down", Toast.LENGTH_SHORT).show();
+        deviceInterface.sendMessage("1");
     }
 
 
@@ -103,7 +104,7 @@ public class FreeMovement extends AppCompatActivity {
     private void onConnected(BluetoothSerialDevice connectedDevice) {
         // You are now connected to this device!
         // Here you may want to retain an instance to your device:
-        SimpleBluetoothDeviceInterface deviceInterface = connectedDevice.toSimpleDeviceInterface();
+        deviceInterface = connectedDevice.toSimpleDeviceInterface();
         Toast.makeText(this, "Connected to the robot.", Toast.LENGTH_LONG).show();
         deviceInterface.sendMessage("Connected.");
         // Listen to bluetooth events
