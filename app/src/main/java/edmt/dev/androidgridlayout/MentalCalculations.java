@@ -288,39 +288,39 @@ public class MentalCalculations extends AppCompatActivity {
     private void setTile(int j){
         switch (j){
             case 0:{
-                blackText.setText(""+map[j]);
+                blackText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 1:{
-                redText.setText(""+map[j]);
+                redText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 2:{
-                yellowText.setText(""+map[j]);
+                yellowText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 3:{
-                blueText.setText(""+map[j]);
+                blueText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 4:{
-                purpleText.setText(""+map[j]);
+                purpleText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 5:{
-                pinkText.setText(""+map[j]);
+                pinkText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 6:{
-                greenText.setText(""+map[j]);
+                greenText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 7:{
-                whiteText.setText(""+map[j]);
+                whiteText.setText(getString(R.string.number,  map[j]));
                 break;
             }
             case 8:{
-                grayText.setText(""+map[j]);
+                grayText.setText(getString(R.string.number,  map[j]));
                 break;
             }
         }

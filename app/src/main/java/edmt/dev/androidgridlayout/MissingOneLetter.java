@@ -30,10 +30,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MissingOneLetter extends AppCompatActivity {
-    boolean firstLetter;
     List<String> words;
     String word;
-    int theWord;
     String c;
     String firstHalf;
     String secondHalf;

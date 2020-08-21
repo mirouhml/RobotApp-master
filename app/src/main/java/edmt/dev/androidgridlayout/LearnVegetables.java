@@ -1,25 +1,19 @@
 package edmt.dev.androidgridlayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -78,47 +72,40 @@ public class LearnVegetables extends AppCompatActivity {
         vegetableViewHolder.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleY(0.95f + r * 0.05f);
-            }
+        compositePageTransformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.95f + r * 0.05f);
         });
 
         vegetableViewHolder.setPageTransformer(compositePageTransformer);
-        t2s=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                        @Override
-                        public void onDone(String utteranceId) {
-                            play.setImageResource(R.drawable.play_button);
-                            playing = false;
-                        }
+        t2s=new TextToSpeech(getApplicationContext(), status -> {
+            if(status != TextToSpeech.ERROR) {
+                t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                    @Override
+                    public void onDone(String utteranceId) {
+                        play.setImageResource(R.drawable.play_button);
+                        playing = false;
+                    }
 
-                        @Override
-                        public void onError(String utteranceId) {
-                        }
+                    @Override
+                    public void onError(String utteranceId) {
+                    }
 
-                        @Override
-                        public void onStart(String utteranceId) {
-                        }
-                    });
-                    switch(language){
-                        case "English":{
-                            t2s.setLanguage(Locale.ENGLISH);
-                            break;
-                        }
-                        case "French":{
-                            t2s.setLanguage(Locale.FRENCH);
-                            break;
-                        }
+                    @Override
+                    public void onStart(String utteranceId) {
+                    }
+                });
+                switch(language){
+                    case "English":{
+                        t2s.setLanguage(Locale.ENGLISH);
+                        break;
+                    }
+                    case "French":{
+                        t2s.setLanguage(Locale.FRENCH);
+                        break;
                     }
                 }
             }
-
         });
         vegetableViewHolder.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

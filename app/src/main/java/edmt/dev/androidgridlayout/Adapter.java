@@ -1,24 +1,14 @@
 package edmt.dev.androidgridlayout;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.Layout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ThingViewHolder> {
     private List<Thing> things;

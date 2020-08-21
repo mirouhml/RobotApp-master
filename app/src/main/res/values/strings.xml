@@ -22,7 +22,7 @@
     <string name="free_movement">Déplacement libre</string>
     <string name="learning">Apprentissage</string>
     <string name="connect_the_robot_please">Connectez le robot s\'il vous plaît</string>
-    <string name="ok" translatable="false">Ok</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="apple">Pomme</string>
     <string name="banana">Banane</string>
     <string name="berries">Baie</string>
@@ -185,4 +185,5 @@
     <string name="yak">Yak</string>
     <string name="zebra">Zèbre</string>
     <string name="words_game">Jeu de mots</string>
+    <string name="number" translatable="false">%1$d</string>
 </resources>
