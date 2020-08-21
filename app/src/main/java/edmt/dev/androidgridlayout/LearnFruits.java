@@ -55,49 +55,43 @@ public class LearnFruits extends AppCompatActivity {
         fruitViewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleY(0.95f + r * 0.05f);
-            }
+        compositePageTransformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.95f + r * 0.05f);
         });
 
         fruitViewPager.setPageTransformer(compositePageTransformer);
-        t2s=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                        @Override
-                        public void onDone(String utteranceId) {
-                            play.setImageResource(R.drawable.play_button);
-                            playing = false;
-                        }
+        t2s=new TextToSpeech(getApplicationContext(), status -> {
+            if(status != TextToSpeech.ERROR) {
+                t2s.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                    @Override
+                    public void onDone(String utteranceId) {
+                        play.setImageResource(R.drawable.play_button);
+                        playing = false;
+                    }
 
-                        @Override
-                        public void onError(String utteranceId) {
-                            Log.e("progressListener","Error");
-                        }
+                    @Override
+                    public void onError(String utteranceId) {
+                        Log.e("progressListener","Error");
+                    }
 
-                        @Override
-                        public void onStart(String utteranceId) {
-                            Log.e("progressListener","Started");
-                        }
-                    });
-                    switch(language){
-                        case "English":{
-                            t2s.setLanguage(Locale.ENGLISH);
-                            break;
-                        }
-                        case "French":{
-                            t2s.setLanguage(Locale.FRENCH);
-                            break;
-                        }
-                        default: {
-                            Toast.makeText(LearnFruits.this, "Arabic", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
+                    @Override
+                    public void onStart(String utteranceId) {
+                        Log.e("progressListener","Started");
+                    }
+                });
+                switch(language){
+                    case "English":{
+                        t2s.setLanguage(Locale.ENGLISH);
+                        break;
+                    }
+                    case "French":{
+                        t2s.setLanguage(Locale.FRENCH);
+                        break;
+                    }
+                    default: {
+                        Toast.makeText(LearnFruits.this, "Arabic", Toast.LENGTH_SHORT).show();
+                        break;
                     }
                 }
             }
