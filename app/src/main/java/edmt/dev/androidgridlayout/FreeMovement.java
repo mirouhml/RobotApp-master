@@ -21,19 +21,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class FreeMovement extends AppCompatActivity {
-    ImageView blackLocation;
-    ImageView redLocation;
-    ImageView yellowLocation;
-    ImageView blueLocation;
-    ImageView purpleLocation;
-    ImageView pinkLocation;
-    ImageView greenLocation;
-    ImageView whiteLocation;
-    ImageView grayLocation;
-    int location;
-    BluetoothManager bluetoothManager;
-    BluetoothAdapter mBluetoothAdapter;
-    final LoadingDialogue dialogue = new LoadingDialogue(FreeMovement.this);
+    private final LoadingDialogue dialogue = new LoadingDialogue(FreeMovement.this);
+    private ImageView blackLocation;
+    private ImageView redLocation;
+    private ImageView yellowLocation;
+    private ImageView blueLocation;
+    private ImageView purpleLocation;
+    private ImageView pinkLocation;
+    private ImageView greenLocation;
+    private ImageView whiteLocation;
+    private ImageView grayLocation;
+    private int location;
+    private BluetoothManager bluetoothManager;
     private SimpleBluetoothDeviceInterface deviceInterface;
 
     @SuppressLint("StaticFieldLeak")
@@ -46,7 +45,7 @@ public class FreeMovement extends AppCompatActivity {
         setTitle(R.string.free_movement);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //checking whether the bluetooth is on or not
         if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)
