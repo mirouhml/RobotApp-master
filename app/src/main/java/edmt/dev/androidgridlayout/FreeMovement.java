@@ -58,7 +58,7 @@ public class FreeMovement extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 // **Code**
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -281,5 +281,11 @@ public class FreeMovement extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bluetoothManager.close();
     }
 }

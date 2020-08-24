@@ -1,7 +1,5 @@
 package edmt.dev.androidgridlayout;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -14,9 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.harrysoft.androidbluetoothserial.BluetoothManager;
 import com.harrysoft.androidbluetoothserial.BluetoothSerialDevice;
 import com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -87,7 +89,7 @@ public class SearchForFruits extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 // **Code**
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -561,14 +563,21 @@ public class SearchForFruits extends AppCompatActivity {
         location = Integer.parseInt(message);
         setLocation();
     }
+
     private void onError(Throwable error) {
         // Handle the error
         dialogue.dismissLoadingDIalogue();
         dialogue.startLoadingDialogue(R.layout.connect_robot);
     }
 
-    public void onOk(View view){
+    public void onOk(View view) {
         dialogue.dismissLoadingDIalogue();
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bluetoothManager.close();
     }
 }

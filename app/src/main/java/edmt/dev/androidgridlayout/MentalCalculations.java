@@ -3,8 +3,6 @@ package edmt.dev.androidgridlayout;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,10 +11,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.harrysoft.androidbluetoothserial.BluetoothManager;
 import com.harrysoft.androidbluetoothserial.BluetoothSerialDevice;
 import com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface;
+
 import java.util.Random;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -75,7 +78,7 @@ public class MentalCalculations extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 // **Code**
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -520,12 +523,6 @@ public class MentalCalculations extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         bluetoothManager.close();
-    }
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        bluetoothManager = BluetoothManager.getInstance();
-        connectDevice();
     }
 
     public void onOk(View view){
