@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -96,19 +95,19 @@ public class FreeMovement extends AppCompatActivity {
     }
 
     public void clickRight(View view) {
-        deviceInterface.sendMessage("0");
+        deviceInterface.sendMessage("R");
     }
 
     public void clickLeft(View view) {
-        deviceInterface.sendMessage("0");
+        deviceInterface.sendMessage("L");
     }
 
     public void clickUp(View view) {
-        deviceInterface.sendMessage("1");
+        deviceInterface.sendMessage("F");
     }
 
     public void clickDown(View view) {
-        deviceInterface.sendMessage("1");
+        deviceInterface.sendMessage("B");
     }
 
 
@@ -150,7 +149,6 @@ public class FreeMovement extends AppCompatActivity {
         // Handle the error
         dialogue.dismissLoadingDIalogue();
         dialogue.startLoadingDialogue(R.layout.connect_robot);
-        Log.e("Bluetooth error", error.toString());
     }
 
     public void onOk(View view) {

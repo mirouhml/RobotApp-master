@@ -349,7 +349,7 @@ public class MissingOneLetter extends AppCompatActivity {
 
     private void onMessageSent(String message) {
         // We sent a message! Handle it here.
-        Toast.makeText(this, "Sent a message! Message was: " + message, Toast.LENGTH_LONG).show(); // Replace context with your context instance.
+        //Toast.makeText(this, "Sent a message! Message was: " + message, Toast.LENGTH_LONG).show(); // Replace context with your context instance.
     }
 
     private void onMessageReceived(String message) {
@@ -357,7 +357,6 @@ public class MissingOneLetter extends AppCompatActivity {
         location = Integer.parseInt(message);
         setLocation();
     }
-    @SuppressLint("StaticFieldLeak")
     private void onError(Throwable error) {
         // Handle the error
         dialogue.dismissLoadingDIalogue();
@@ -505,18 +504,21 @@ public class MissingOneLetter extends AppCompatActivity {
             }
         }
     }
-    public void clickRight(View view){ deviceInterface.sendMessage("1"); }
+
+    public void clickRight(View view) {
+        deviceInterface.sendMessage("R");
+    }
 
     public void clickLeft(View view){
-        deviceInterface.sendMessage("1");
+        deviceInterface.sendMessage("L");
     }
 
     public void clickUp(View view){
-        deviceInterface.sendMessage("0");
+        deviceInterface.sendMessage("F");
     }
 
     public void clickDown(View view){
-        deviceInterface.sendMessage("0");
+        deviceInterface.sendMessage("B");
     }
 
 
@@ -682,6 +684,6 @@ public class MissingOneLetter extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        bluetoothManager.close();
+
     }
 }

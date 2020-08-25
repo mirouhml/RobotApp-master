@@ -157,18 +157,20 @@ public class MentalCalculations extends AppCompatActivity {
             message.setVisibility(View.VISIBLE);
     }
 
-    public void clickRight(View view){ deviceInterface.sendMessage("1"); }
+    public void clickRight(View view) {
+        deviceInterface.sendMessage("R");
+    }
 
     public void clickLeft(View view){
-        deviceInterface.sendMessage("1");
+        deviceInterface.sendMessage("L");
     }
 
     public void clickUp(View view){
-        deviceInterface.sendMessage("0");
+        deviceInterface.sendMessage("F");
     }
 
     public void clickDown(View view){
-        deviceInterface.sendMessage("0");
+        deviceInterface.sendMessage("B");
     }
 
     int random(){
