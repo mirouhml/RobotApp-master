@@ -160,7 +160,7 @@
                 android:id="@+id/whiteView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/white"/>
+                android:src="@drawable/brown" />
             <ImageView
                 android:id="@+id/circleWhiteView"
                 android:layout_width="wrap_content"
