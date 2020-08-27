@@ -3,9 +3,9 @@ package edmt.dev.androidgridlayout;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,24 +21,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FreeMovement extends AppCompatActivity {
     private final LoadingDialogue dialogue = new LoadingDialogue(FreeMovement.this);
-    private ImageView blackLocation;
-    private ImageView redLocation;
-    private ImageView yellowLocation;
-    private ImageView blueLocation;
-    private ImageView purpleLocation;
-    private ImageView pinkLocation;
-    private ImageView greenLocation;
-    private ImageView whiteLocation;
-    private ImageView grayLocation;
     private int location;
     private BluetoothManager bluetoothManager;
     private SimpleBluetoothDeviceInterface deviceInterface;
+    private CreateVariables variables;
+    private boolean stopped = false;
 
-    @SuppressLint("StaticFieldLeak")
+    @SuppressLint({"StaticFieldLeak", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_free_movement);
+        variables = new CreateVariables(this);
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.free_movement);
@@ -50,37 +44,54 @@ public class FreeMovement extends AppCompatActivity {
             // Bluetooth is not enabled :)
             mBluetoothAdapter.enable();
         }
-        //showing the loading view
-        new AsyncTask<Void, Void, Void>() {
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected Void doInBackground(Void... params) {
-                // **Code**
-                try {
-                    Thread.sleep(1800);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                connectDevice();
-                return null;
+        new Thread(() -> {
+            // TODO Auto-generated method stub
+            try {
+                Thread.sleep(1800);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-            }
-        }.execute();
-
-        blackLocation = findViewById(R.id.circleBlackView);
-        redLocation = findViewById(R.id.circleRedView);
-        yellowLocation = findViewById(R.id.circleYellowView);
-        blueLocation = findViewById(R.id.circleBlueView);
-        purpleLocation = findViewById(R.id.circlePurpleView);
-        pinkLocation = findViewById(R.id.circlePinkView);
-        greenLocation = findViewById(R.id.circleGreenView);
-        whiteLocation = findViewById(R.id.circleWhiteView);
-        grayLocation = findViewById(R.id.circleGrayView);
+            connectDevice();
+        }).start();
         location = -1;
+        ImageView up;
+        ImageView down;
+        ImageView right;
+        ImageView left;
+        up = findViewById(R.id.arrow_up);
+        down = findViewById(R.id.arrow_down);
+        right = findViewById(R.id.arrow_right);
+        left = findViewById(R.id.arrow_left);
+
+        up.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("1");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+        down.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("2");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+        right.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("4");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+        left.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("3");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+
     }
 
     @Override
@@ -92,22 +103,6 @@ public class FreeMovement extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void clickRight(View view) {
-        deviceInterface.sendMessage("R");
-    }
-
-    public void clickLeft(View view) {
-        deviceInterface.sendMessage("L");
-    }
-
-    public void clickUp(View view) {
-        deviceInterface.sendMessage("F");
-    }
-
-    public void clickDown(View view) {
-        deviceInterface.sendMessage("B");
     }
 
 
@@ -136,7 +131,7 @@ public class FreeMovement extends AppCompatActivity {
 
     private void onMessageSent(String message) {
         // We sent a message! Handle it here.
-        Toast.makeText(this, "Sent a message! Message was: " + message, Toast.LENGTH_LONG).show(); // Replace context with your context instance.
+        //Toast.makeText(this, "Sent a message! Message was: " + message, Toast.LENGTH_LONG).show(); // Replace context with your context instance.
     }
 
     private void onMessageReceived(String message) {
@@ -159,123 +154,123 @@ public class FreeMovement extends AppCompatActivity {
     private void setLocation() {
         switch (location) {
             case 0: {
-                blackLocation.setVisibility(View.VISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.VISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 1: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.VISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.VISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 2: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.VISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.VISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 3: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.VISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.VISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 4: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.VISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.VISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 5: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.VISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 6: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.VISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 7: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.VISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.VISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
             case 8: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.VISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.VISIBLE);
                 break;
             }
             default: {
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
         }
@@ -285,5 +280,15 @@ public class FreeMovement extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         bluetoothManager.close();
+        stopped = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (stopped) {
+            finish();
+            startActivity(getIntent());
+        }
     }
 }

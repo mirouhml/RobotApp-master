@@ -1,6 +1,5 @@
 package edmt.dev.androidgridlayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +14,8 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Locale;
 
 public class HomePage extends AppCompatActivity {
@@ -26,7 +27,8 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainGrid = (GridLayout) findViewById(R.id.mainGrid);
+        mainGrid = findViewById(R.id.mainGrid);
+        //Locale locl = getResources().getConfiguration().locale;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth

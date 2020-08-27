@@ -27,30 +27,40 @@
                 android:textSize="40sp"
                 android:text="_"
                 android:visibility="invisible"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black" />
+
             <TextView
                 android:id="@+id/second_half"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black" />
+
             <TextView
                 android:id="@+id/word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"
                 android:visibility="gone"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
         <TextView
             android:id="@+id/operation_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/message"
             android:textSize="30sp"
-            android:visibility="invisible"
-            android:layout_marginEnd="5dp"
+            android:visibility="gone"
             android:textColor="#D77C7C"
+
             />
         <LinearLayout
             android:layout_width="wrap_content"

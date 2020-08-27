@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,40 +30,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MissingOneLetter extends AppCompatActivity {
-    List<String> words;
-    String word;
+    final String[] frenchAlpha = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "É", "È", "Ç", "À", "Ô", "Î", "Â", "Ï", "Œ"};
+    final String[] englishAlpha = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     String c;
     String firstHalf;
     String secondHalf;
-    ImageView blackLocation;
-    ImageView redLocation;
-    ImageView yellowLocation;
-    ImageView blueLocation;
-    ImageView purpleLocation;
-    ImageView pinkLocation;
-    ImageView greenLocation;
-    ImageView whiteLocation;
-    ImageView grayLocation;
-    TextView blackText;
-    TextView redText;
-    TextView yellowText;
-    TextView blueText;
-    TextView purpleText;
-    TextView pinkText;
-    TextView greenText;
-    TextView whiteText;
-    TextView grayText;
+    final String[] arabicAlpha = {"غ", "ظ", "ض", "ذ", "خ", "ث", "ت", "ش", "ر", "ق", "ص", "ف", "ع", "س", "ن", "م", "ل", "ك", "ي", "ط", "ح", "ز", "و", "ه", "د", "ج", "ب", "أ"};
+
     TextView message;
     int location;
-    String [] map;
+    List<Thing> words;
+    Thing word;
+
     BluetoothManager bluetoothManager;
     BluetoothAdapter mBluetoothAdapter;
     SimpleBluetoothDeviceInterface deviceInterface;
     final LoadingDialogue dialogue = new LoadingDialogue(MissingOneLetter.this);
-    String [] lettersUsed;
-    final String [] englishAlpha = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-    final String [] arabicAlpha = {"غ","ظ","ض","ذ","خ","ث","ت","ش","ر","ق","ص","ف","ع","س","ن","م","ل","ك","ي","ط","ح","ز","و","ه","د","ج","ب","أ"};
-    
+    String[] map;
+    String[] lettersUsed;
+    private CreateVariables variables;
+    private boolean stopped = false;
+
     TextView firstHalfTV;
     TextView secondHalfTV;
     TextView wordTV;
@@ -71,11 +58,13 @@ public class MissingOneLetter extends AppCompatActivity {
     String language;
     EditText letterET;
     int index = 0;
-    @SuppressLint("StaticFieldLeak")
+
+    @SuppressLint({"StaticFieldLeak", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_missing_one_letter);
+        variables = new CreateVariables(this);
         words = new ArrayList<>();
         setTitle(R.string.words_game);
         addWords();
@@ -93,53 +82,61 @@ public class MissingOneLetter extends AppCompatActivity {
             // Bluetooth is not enabled :)
             mBluetoothAdapter.enable();
         }
-
         //showing the loading view
-        new AsyncTask<Void, Void, Void>(){
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected Void doInBackground(Void... params) {
-                // **Code**
-                try {
-                    Thread.sleep(1800);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                connectDevice();
-                return null;
+        new Thread(() -> {
+            // TODO Auto-generated method stub
+            try {
+                Thread.sleep(1800);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-            }
-        }.execute();
+            connectDevice();
+        }).start();
 
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        blackText = findViewById(R.id.blackViewText);
-        redText = findViewById(R.id.redViewText);
-        yellowText = findViewById(R.id.yellowViewText);
-        blueText = findViewById(R.id.blueViewText);
-        purpleText = findViewById(R.id.purpleViewText);
-        pinkText = findViewById(R.id.pinkViewText);
-        greenText = findViewById(R.id.greenViewText);
-        whiteText = findViewById(R.id.whiteViewText);
-        grayText = findViewById(R.id.grayViewText);
-        blackLocation = findViewById(R.id.circleBlackView);
-        redLocation = findViewById(R.id.circleRedView);
-        yellowLocation = findViewById(R.id.circleYellowView);
-        blueLocation = findViewById(R.id.circleBlueView);
-        purpleLocation = findViewById(R.id.circlePurpleView);
-        pinkLocation = findViewById(R.id.circlePinkView);
-        greenLocation = findViewById(R.id.circleGreenView);
-        whiteLocation = findViewById(R.id.circleWhiteView);
-        grayLocation = findViewById(R.id.circleGrayView);
         message = findViewById(R.id.operation_answer);
-        message.setVisibility(View.INVISIBLE);
+        message.setVisibility(View.GONE);
         location = -1;
+        ImageView up;
+        ImageView down;
+        ImageView right;
+        ImageView left;
+        up = findViewById(R.id.arrow_up);
+        down = findViewById(R.id.arrow_down);
+        right = findViewById(R.id.arrow_right);
+        left = findViewById(R.id.arrow_left);
+
+        up.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("1");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+        down.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("2");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+        right.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("4");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
+        left.setOnTouchListener(((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                deviceInterface.sendMessage("3");
+            else if (event.getAction() == MotionEvent.ACTION_UP)
+                deviceInterface.sendMessage("S");
+            return false;
+        }));
         SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
-        language = gameSettings.getString("Language","DEFAULT");
+        language = gameSettings.getString("Language", "DEFAULT");
         refresh();
 
     }
@@ -158,7 +155,7 @@ public class MissingOneLetter extends AppCompatActivity {
     private void generateMap() {
 
         assert language != null;
-        if(language.equals("Arabic")){
+        if (language.equals("Arabic")) {
             lettersUsed = arabicAlpha;
             Button choose = findViewById(R.id.choose);
             Button choose2 = findViewById(R.id.choose2);
@@ -168,30 +165,34 @@ public class MissingOneLetter extends AppCompatActivity {
             next.setVisibility(View.GONE);
             choose2.setVisibility(View.VISIBLE);
             next2.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else if (language.equals("French")) {
+            lettersUsed = frenchAlpha;
+        } else {
             lettersUsed = englishAlpha;
         }
 
-        map = new String[]{"-1","-1","-1",
-                "-1","-1","-1",
-                "-1","-1","-1"};
+        map = new String[]{"-1", "-1", "-1",
+                "-1", "-1", "-1",
+                "-1", "-1", "-1"};
         word = words.get(index);
+        ImageView hint = findViewById(R.id.hint);
+        hint.setImageResource(word.getImageResourceId());
         index++;
-        String [] stringArray = word.split("");
-        c=" ";
-        int splitCharacter =0;
-        while (c.equals(" ")){
-            splitCharacter = new Random().nextInt(stringArray.length-1);
-            c = stringArray[splitCharacter+1];
+        String[] stringArray = word.getNAme().split("");
+        c = " ";
+        int splitCharacter = 0;
+        while (c.equals(" ")) {
+            splitCharacter = new Random().nextInt(stringArray.length - 1);
+            c = stringArray[splitCharacter + 1];
         }
-        map[0]=c;
+        Log.d("MissingOneLetter", "removed letter: " + c);
+        map[0] = c;
         for (int j = 1; j < 3; j++) {
             map[j] = randomLetter().toLowerCase();
             if (map[j].equals(c))
-                while(map[j].equals(c))
+                while (map[j].equals(c))
                     map[j] = randomLetter();
-            Log.e("Error",map[j]);
+            Log.e("Error", map[j]);
             for (int k = 0; k < j; k++) {
                 if (map[j].equals(map[k])) {
                     j--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
@@ -200,30 +201,31 @@ public class MissingOneLetter extends AppCompatActivity {
             }
         }
         shuffleArray(map);
-        for(int j=0; j<map.length;j++){
-            if(!map[j].equals("-1"))
+        for (int j = 0; j < map.length; j++) {
+            if (!map[j].equals("-1"))
                 setTile(j);
         }
 
-        firstHalf = word.substring(0,splitCharacter);
-        secondHalf = word.substring(splitCharacter+1);
+        firstHalf = word.getNAme().substring(0, splitCharacter);
+        secondHalf = word.getNAme().substring(splitCharacter + 1);
+        Log.d("MissingOneLetter", "firstHalf: " + firstHalf + " secondHalf: " + secondHalf);
         //Toast.makeText(this, ""+firstHalf+"+"+c+"+"+secondHalf, Toast.LENGTH_SHORT).show();
         assert language != null;
-        if(language.equals("Arabic")){
+        if (language.equals("Arabic")) {
             int position;
-            char [] characters = {'غ','ظ','ض','خ','ث','ت','ش','ق','ص','ف','ع','س','ن','م','ل','ك','ي','ط','ح','ه','ج','ب'};
-            if (firstHalf.length() > 0){
-                position = firstHalf.length()-1;
+            char[] characters = {'غ', 'ظ', 'ض', 'خ', 'ث', 'ت', 'ش', 'ق', 'ص', 'ف', 'ع', 'س', 'ن', 'م', 'ل', 'ك', 'ي', 'ط', 'ح', 'ه', 'ج', 'ب'};
+            if (firstHalf.length() > 0) {
+                position = firstHalf.length() - 1;
                 char lastCharacter = firstHalf.charAt(position);
-                for (char chara : characters ){
-                    if (chara == lastCharacter){
+                for (char chara : characters) {
+                    if (chara == lastCharacter) {
                         firstHalf = firstHalf + "ـ";
                         break;
                     }
                 }
             }
-            if (secondHalf.length() > 0){
-                for (char chara : characters){
+            if (secondHalf.length() > 0) {
+                for (char chara : characters) {
                     if (String.valueOf(chara).equals(c)){
                         if(secondHalf.charAt(0) != ' ')
                             secondHalf = "ـ" + secondHalf;
@@ -246,39 +248,39 @@ public class MissingOneLetter extends AppCompatActivity {
     private void setTile(int j){
         switch (j){
             case 0:{
-                blackText.setText(map[j].toUpperCase());
+                variables.getBlackText().setText(map[j].toUpperCase());
                 break;
             }
             case 1:{
-                redText.setText(map[j].toUpperCase());
+                variables.getRedText().setText(map[j].toUpperCase());
                 break;
             }
             case 2:{
-                yellowText.setText(map[j].toUpperCase());
+                variables.getYellowText().setText(map[j].toUpperCase());
                 break;
             }
             case 3:{
-                blueText.setText(map[j].toUpperCase());
+                variables.getBlueText().setText(map[j].toUpperCase());
                 break;
             }
             case 4:{
-                purpleText.setText(map[j].toUpperCase());
+                variables.getPurpleText().setText(map[j].toUpperCase());
                 break;
             }
             case 5:{
-                pinkText.setText(map[j].toUpperCase());
+                variables.getPinkText().setText(map[j].toUpperCase());
                 break;
             }
             case 6:{
-                greenText.setText(map[j].toUpperCase());
+                variables.getGreenText().setText(map[j].toUpperCase());
                 break;
             }
             case 7:{
-                whiteText.setText(map[j].toUpperCase());
+                variables.getWhiteText().setText(map[j].toUpperCase());
                 break;
             }
             case 8:{
-                grayText.setText(map[j].toUpperCase());
+                variables.getGrayText().setText(map[j].toUpperCase());
                 break;
             }
         }
@@ -309,7 +311,7 @@ public class MissingOneLetter extends AppCompatActivity {
             secondHalfTV.setVisibility(View.GONE);
             splitTV.setVisibility(View.GONE);
             wordTV.setVisibility(View.VISIBLE);
-            wordTV.setText(word);
+            wordTV.setText(word.getNAme());
             dialogue.startLoadingDialogue(R.layout.success);
         }
         else
@@ -318,7 +320,7 @@ public class MissingOneLetter extends AppCompatActivity {
 
     public void clickNext(View view) {
         refresh();
-        message.setVisibility(View.INVISIBLE);
+        message.setVisibility(View.GONE);
         if (dialogue.isOn){
             dialogue.dismissLoadingDIalogue();
         }
@@ -365,315 +367,302 @@ public class MissingOneLetter extends AppCompatActivity {
     }
 
     private void refresh() {
-        blackText.setText("");
-        redText.setText("");
-        yellowText.setText("");
-        blueText.setText("");
-        purpleText.setText("");
-        pinkText.setText("");
-        greenText.setText("");
-        whiteText.setText("");
-        grayText.setText("");
+        variables.getBlackText().setText("");
+        variables.getRedText().setText("");
+        variables.getYellowText().setText("");
+        variables.getBlueText().setText("");
+        variables.getPurpleText().setText("");
+        variables.getPinkText().setText("");
+        variables.getGreenText().setText("");
+        variables.getWhiteText().setText("");
+        variables.getGrayText().setText("");
         firstHalfTV.setVisibility(View.VISIBLE);
         secondHalfTV.setVisibility(View.VISIBLE);
         splitTV.setVisibility(View.VISIBLE);
         wordTV.setVisibility(View.GONE);
         generateMap();
     }
-    private void setLocation(){
-        switch (location){
-            case 0:{
-                blackLocation.setVisibility(View.VISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+
+    private void setLocation() {
+        switch (location) {
+            case 0: {
+                variables.getBlackLocation().setVisibility(View.VISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 1:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.VISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 1: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.VISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 2:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.VISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 2: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.VISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 3:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.VISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 3: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.VISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 4:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.VISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 4: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.VISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 5:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.VISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 5: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 6:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.VISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 6: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 7:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.VISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            case 7: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.VISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
-            case 8:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.VISIBLE);
+            case 8: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.VISIBLE);
                 break;
             }
-            default:{
-                blackLocation.setVisibility(View.INVISIBLE);
-                redLocation.setVisibility(View.INVISIBLE);
-                yellowLocation.setVisibility(View.INVISIBLE);
-                blueLocation.setVisibility(View.INVISIBLE);
-                purpleLocation.setVisibility(View.INVISIBLE);
-                pinkLocation.setVisibility(View.INVISIBLE);
-                greenLocation.setVisibility(View.INVISIBLE);
-                whiteLocation.setVisibility(View.INVISIBLE);
-                grayLocation.setVisibility(View.INVISIBLE);
+            default: {
+                variables.getBlackLocation().setVisibility(View.INVISIBLE);
+                variables.getRedLocation().setVisibility(View.INVISIBLE);
+                variables.getYellowLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getPurpleLocation().setVisibility(View.INVISIBLE);
+                variables.getPinkLocation().setVisibility(View.INVISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
         }
     }
 
-    public void clickRight(View view) {
-        deviceInterface.sendMessage("R");
-    }
 
-    public void clickLeft(View view){
-        deviceInterface.sendMessage("L");
-    }
-
-    public void clickUp(View view){
-        deviceInterface.sendMessage("F");
-    }
-
-    public void clickDown(View view){
-        deviceInterface.sendMessage("B");
-    }
 
 
 
 
     private void addWords() {
-        words.add(getString(R.string.cat));
-        words.add(getString(R.string.dog));
-        words.add(getString(R.string.chicken));
-        words.add(getString(R.string.duck));
-        words.add(getString(R.string.dolphin));
-        words.add(getString(R.string.elephant));
-        words.add(getString(R.string.camel));
-        words.add(getString(R.string.deer));
-        words.add(getString(R.string.giragge));
-        words.add(getString(R.string.lion));
-        words.add(getString(R.string.sheep));
-        words.add(getString(R.string.rabbit));
-        words.add(getString(R.string.horse));
-        words.add(getString(R.string.monkey));
-        words.add(getString(R.string.swan));
-        words.add(getString(R.string.turtle));
-        words.add(getString(R.string.squirrel));
-        words.add(getString(R.string.koala));
-        words.add(getString(R.string.panda_bear));
-        words.add(getString(R.string.frog));
-        words.add(getString(R.string.pig));
-        words.add(getString(R.string.snake));
-        words.add(getString(R.string.bee));
-        words.add(getString(R.string.crab));
-        words.add(getString(R.string.flamingo));
-        words.add(getString(R.string.hedgehog));
-        words.add(getString(R.string.hippopotamus));
-        words.add(getString(R.string.jellyfish));
-        words.add(getString(R.string.kangaroo));
-        words.add(getString(R.string.llama));
-        words.add(getString(R.string.octopus));
-        words.add(getString(R.string.owl));
-        words.add(getString(R.string.penguin));
-        words.add(getString(R.string.seahorse));
-        words.add(getString(R.string.seal));
-        words.add(getString(R.string.shark));
-        words.add(getString(R.string.whale));
-        words.add(getString(R.string.ant));
-        words.add(getString(R.string.anteater));
-        words.add(getString(R.string.arctic_fox));
-        words.add(getString(R.string.bear));
-        words.add(getString(R.string.beetle));
-        words.add(getString(R.string.bison));
-        words.add(getString(R.string.black_panther));
-        words.add(getString(R.string.chameleon));
-        words.add(getString(R.string.cheetah));
-        words.add(getString(R.string.clown_fish));
-        words.add(getString(R.string.cougar));
-        words.add(getString(R.string.cow));
-        words.add(getString(R.string.crocodile));
-        words.add(getString(R.string.eagle));
-        words.add(getString(R.string.emu));
-        words.add(getString(R.string.fox));
-        words.add(getString(R.string.goat));
-        words.add(getString(R.string.gorilla));
-        words.add(getString(R.string.hamster));
-        words.add(getString(R.string.jaguar));
-        words.add(getString(R.string.ladybug));
-        words.add(getString(R.string.maki));
-        words.add(getString(R.string.leopard));
-        words.add(getString(R.string.lobster));
-        words.add(getString(R.string.mouse));
-        words.add(getString(R.string.orca));
-        words.add(getString(R.string.ostrich));
-        words.add(getString(R.string.otter));
-        words.add(getString(R.string.peacock));
-        words.add(getString(R.string.pigeon));
-        words.add(getString(R.string.polar_bear));
-        words.add(getString(R.string.prawn));
-        words.add(getString(R.string.puffer_fish));
-        words.add(getString(R.string.raccoon));
-        words.add(getString(R.string.rat));
-        words.add(getString(R.string.red_panda));
-        words.add(getString(R.string.reindeer));
-        words.add(getString(R.string.rhinoceros));
-        words.add(getString(R.string.salmon));
-        words.add(getString(R.string.scorpion));
-        words.add(getString(R.string.skunk));
-        words.add(getString(R.string.sloth));
-        words.add(getString(R.string.snail));
-        words.add(getString(R.string.spider));
-        words.add(getString(R.string.starfish));
-        words.add(getString(R.string.tiger));
-        words.add(getString(R.string.tortoise));
-        words.add(getString(R.string.toucan));
-        words.add(getString(R.string.turkey));
-        words.add(getString(R.string.walrus));
-        words.add(getString(R.string.wolf));
-        words.add(getString(R.string.yak));
-        words.add(getString(R.string.zebra));
-        words.add(getString(R.string.apple));
-        words.add(getString(R.string.banana));
-        words.add(getString(R.string.berries));
-        words.add(getString(R.string.cherry));
-        words.add(getString(R.string.grapes));
-        words.add(getString(R.string.coconut));
-        words.add(getString(R.string.kiwi));
-        words.add(getString(R.string.lemon));
-        words.add(getString(R.string.melon));
-        words.add(getString(R.string.orange));
-        words.add(getString(R.string.pineapple));
-        words.add(getString(R.string.strawberry));
-        words.add(getString(R.string.watermelon));
-        words.add(getString(R.string.pumpkin));
-        words.add(getString(R.string.tomato));
-        words.add(getString(R.string.grenade));
-        words.add(getString(R.string.apricot));
-        words.add(getString(R.string.avocado));
-        words.add(getString(R.string.blueberry));
-        words.add(getString(R.string.chestnut));
-        words.add(getString(R.string.fig));
-        words.add(getString(R.string.gooseberry));
-        words.add(getString(R.string.grapefruit));
-        words.add(getString(R.string.guava));
-        words.add(getString(R.string.kumquat));
-        words.add(getString(R.string.lime));
-        words.add(getString(R.string.mango));
-        words.add(getString(R.string.mangosteen));
-        words.add(getString(R.string.papaya));
-        words.add(getString(R.string.granadilla));
-        words.add(getString(R.string.peacj));
-        words.add(getString(R.string.pear));
-        words.add(getString(R.string.persimmon));
-        words.add(getString(R.string.plum));
-        words.add(getString(R.string.quince));
-        words.add(getString(R.string.rambutan));
-        words.add(getString(R.string.raspberry));
-        words.add(getString(R.string.date));
-        words.add(getString(R.string.carrot));
-        words.add(getString(R.string.bell_pepper));
-        words.add(getString(R.string.corn));
-        words.add(getString(R.string.cucumber));
-        words.add(getString(R.string.eggplant));
-        words.add(getString(R.string.garlic));
-        words.add(getString(R.string.peas));
-        words.add(getString(R.string.potato));
-        words.add(getString(R.string.radish));
-        words.add(getString(R.string.lettuce));
-        words.add(getString(R.string.broccoli));
-        words.add(getString(R.string.beet));
-        words.add(getString(R.string.cabbage));
-        words.add(getString(R.string.cauliflower));
-        words.add(getString(R.string.chili_pepper));
-        words.add(getString(R.string.ginger));
-        words.add(getString(R.string.horseradish));
-        words.add(getString(R.string.olives));
-        words.add(getString(R.string.spinach));
-        words.add(getString(R.string.turnip));
-        words.add(getString(R.string.zucchini));
+        words.add(new Thing(getString(R.string.cat), "le", R.drawable.cat2));
+        words.add(new Thing(getString(R.string.dog), "le", R.drawable.dog));
+        words.add(new Thing(getString(R.string.chicken), "le", R.drawable.chicken));
+        words.add(new Thing(getString(R.string.duck), "le", R.drawable.duck));
+        words.add(new Thing(getString(R.string.dolphin), "le", R.drawable.dolphin));
+        words.add(new Thing(getString(R.string.elephant), "l'", R.drawable.elephant));
+        words.add(new Thing(getString(R.string.camel), "le", R.drawable.camel));
+        words.add(new Thing(getString(R.string.deer), "le", R.drawable.deer));
+        words.add(new Thing(getString(R.string.giragge), "la", R.drawable.giraffe));
+        words.add(new Thing(getString(R.string.lion), "le", R.drawable.lion));
+        words.add(new Thing(getString(R.string.sheep), "le", R.drawable.sheep));
+        words.add(new Thing(getString(R.string.rabbit), "le", R.drawable.rabbit));
+        words.add(new Thing(getString(R.string.horse), "le", R.drawable.horse));
+        words.add(new Thing(getString(R.string.monkey), "le", R.drawable.monkey));
+        words.add(new Thing(getString(R.string.swan), "le", R.drawable.swan));
+        words.add(new Thing(getString(R.string.turtle), "la", R.drawable.turtle));
+        words.add(new Thing(getString(R.string.squirrel), "l'", R.drawable.squirrel));
+        words.add(new Thing(getString(R.string.koala), "le", R.drawable.koala));
+        words.add(new Thing(getString(R.string.panda_bear), "le", R.drawable.panda_bear));
+        words.add(new Thing(getString(R.string.frog), "la", R.drawable.frog));
+        words.add(new Thing(getString(R.string.pig), "le", R.drawable.pig));
+        words.add(new Thing(getString(R.string.snake), "le", R.drawable.snake));
+        words.add(new Thing(getString(R.string.bee), "l'", R.drawable.bee));
+        words.add(new Thing(getString(R.string.crab), "le", R.drawable.crab));
+        words.add(new Thing(getString(R.string.flamingo), "le", R.drawable.flamingo));
+        words.add(new Thing(getString(R.string.hedgehog), "l'", R.drawable.hedgehog));
+        words.add(new Thing(getString(R.string.hippopotamus), "l'", R.drawable.hippopotamus));
+        words.add(new Thing(getString(R.string.jellyfish), "la", R.drawable.jellyfish));
+        words.add(new Thing(getString(R.string.kangaroo), "le", R.drawable.kangaroo));
+        words.add(new Thing(getString(R.string.llama), "le", R.drawable.llama));
+        words.add(new Thing(getString(R.string.octopus), "le", R.drawable.octopus));
+        words.add(new Thing(getString(R.string.owl), "l'", R.drawable.owl));
+        words.add(new Thing(getString(R.string.penguin), "le", R.drawable.penguin));
+        words.add(new Thing(getString(R.string.seahorse), "l'", R.drawable.seahorse));
+        words.add(new Thing(getString(R.string.seal), "le", R.drawable.seal));
+        words.add(new Thing(getString(R.string.shark), "le", R.drawable.shark));
+        words.add(new Thing(getString(R.string.whale), "la", R.drawable.whale));
+        words.add(new Thing(getString(R.string.ant), "la", R.drawable.ant));
+        words.add(new Thing(getString(R.string.anteater), "le", R.drawable.anteater));
+        words.add(new Thing(getString(R.string.arctic_fox), "le", R.drawable.arctic_fox));
+        words.add(new Thing(getString(R.string.bear), "l'", R.drawable.bear));
+        words.add(new Thing(getString(R.string.beetle), "le", R.drawable.beetle));
+        words.add(new Thing(getString(R.string.bison), "le", R.drawable.bison));
+        words.add(new Thing(getString(R.string.black_panther), "la", R.drawable.black_panther));
+        words.add(new Thing(getString(R.string.chameleon), "le", R.drawable.chameleon));
+        words.add(new Thing(getString(R.string.cheetah), "le", R.drawable.cheetah));
+        words.add(new Thing(getString(R.string.clown_fish), "le", R.drawable.clown_fish));
+        words.add(new Thing(getString(R.string.cougar), "le", R.drawable.cougar));
+        words.add(new Thing(getString(R.string.cow), "la", R.drawable.cow));
+        words.add(new Thing(getString(R.string.crocodile), "le", R.drawable.crocodile));
+        words.add(new Thing(getString(R.string.eagle), "l'", R.drawable.eagle));
+        words.add(new Thing(getString(R.string.emu), "l'", R.drawable.emu));
+        words.add(new Thing(getString(R.string.fox), "le", R.drawable.fox));
+        words.add(new Thing(getString(R.string.goat), "la", R.drawable.goat));
+        words.add(new Thing(getString(R.string.gorilla), "le", R.drawable.gorilla));
+        words.add(new Thing(getString(R.string.hamster), "le", R.drawable.hamster));
+        words.add(new Thing(getString(R.string.jaguar), "le", R.drawable.jaguar));
+        words.add(new Thing(getString(R.string.ladybug), "la", R.drawable.ladybug));
+        words.add(new Thing(getString(R.string.maki), "le", R.drawable.lemur));
+        words.add(new Thing(getString(R.string.leopard), "le", R.drawable.leopard));
+        words.add(new Thing(getString(R.string.lobster), "l'", R.drawable.lobster));
+        words.add(new Thing(getString(R.string.mouse), "la", R.drawable.mouse));
+        words.add(new Thing(getString(R.string.orca), "l'", R.drawable.orca));
+        words.add(new Thing(getString(R.string.ostrich), "l'", R.drawable.ostrich));
+        words.add(new Thing(getString(R.string.otter), "la", R.drawable.otter));
+        words.add(new Thing(getString(R.string.peacock), "le", R.drawable.peacock));
+        words.add(new Thing(getString(R.string.pigeon), "le", R.drawable.pigeon));
+        words.add(new Thing(getString(R.string.polar_bear), "l'", R.drawable.polar_bear));
+        words.add(new Thing(getString(R.string.prawn), "la", R.drawable.prawn));
+        words.add(new Thing(getString(R.string.puffer_fish), "le", R.drawable.puffer_fish));
+        words.add(new Thing(getString(R.string.raccoon), "le", R.drawable.raccoon));
+        words.add(new Thing(getString(R.string.rat), "le", R.drawable.rat));
+        words.add(new Thing(getString(R.string.red_panda), "le", R.drawable.red_panda));
+        words.add(new Thing(getString(R.string.reindeer), "le", R.drawable.reindeer));
+        words.add(new Thing(getString(R.string.rhinoceros), "le", R.drawable.rhinoceros));
+        words.add(new Thing(getString(R.string.salmon), "le", R.drawable.salmon));
+        words.add(new Thing(getString(R.string.scorpion), "le", R.drawable.scorpion));
+        words.add(new Thing(getString(R.string.skunk), "la", R.drawable.skunk));
+        words.add(new Thing(getString(R.string.sloth), "la", R.drawable.sloth));
+        words.add(new Thing(getString(R.string.snail), "l'", R.drawable.snail));
+        words.add(new Thing(getString(R.string.spider), "l'", R.drawable.spider));
+        words.add(new Thing(getString(R.string.starfish), "l'", R.drawable.starfish));
+        words.add(new Thing(getString(R.string.tiger), "le", R.drawable.tiger));
+        words.add(new Thing(getString(R.string.tortoise), "la", R.drawable.tortoise));
+        words.add(new Thing(getString(R.string.toucan), "le", R.drawable.toucan));
+        words.add(new Thing(getString(R.string.turkey), "la", R.drawable.turkey));
+        words.add(new Thing(getString(R.string.walrus), "le", R.drawable.walrus));
+        words.add(new Thing(getString(R.string.wolf), "le", R.drawable.wolf));
+        words.add(new Thing(getString(R.string.yak), "le", R.drawable.yak));
+        words.add(new Thing(getString(R.string.zebra), "le", R.drawable.zebra));
+        words.add(new Thing(getString(R.string.apple), "la", R.drawable.apple));
+        words.add(new Thing(getString(R.string.banana), "la", R.drawable.banana));
+        words.add(new Thing(getString(R.string.berries), "la", R.drawable.berries));
+        words.add(new Thing(getString(R.string.cherry), "la", R.drawable.cherry));
+        words.add(new Thing(getString(R.string.grapes), "le", R.drawable.grapes));
+        words.add(new Thing(getString(R.string.coconut), "la", R.drawable.coconut));
+        words.add(new Thing(getString(R.string.kiwi), "le", R.drawable.kiwi));
+        words.add(new Thing(getString(R.string.lemon), "le", R.drawable.lemon));
+        words.add(new Thing(getString(R.string.melon), "le", R.drawable.melon));
+        words.add(new Thing(getString(R.string.orange), "l'", R.drawable.orange));
+        words.add(new Thing(getString(R.string.pineapple), "l'", R.drawable.pineapple));
+        words.add(new Thing(getString(R.string.strawberry), "la", R.drawable.strawberry));
+        words.add(new Thing(getString(R.string.watermelon), "la", R.drawable.watermelon));
+        words.add(new Thing(getString(R.string.pumpkin), "la", R.drawable.pumpkin));
+        words.add(new Thing(getString(R.string.tomato), "la", R.drawable.tomato));
+        words.add(new Thing(getString(R.string.grenade), "la", R.drawable.pomegranate));
+        words.add(new Thing(getString(R.string.apricot), "l'", R.drawable.apricot));
+        words.add(new Thing(getString(R.string.avocado), "l'", R.drawable.avocado));
+        words.add(new Thing(getString(R.string.blueberry), "la", R.drawable.blueberry));
+        words.add(new Thing(getString(R.string.chestnut), "la", R.drawable.chestnut));
+        words.add(new Thing(getString(R.string.fig), "la", R.drawable.fig));
+        words.add(new Thing(getString(R.string.gooseberry), "la", R.drawable.gooseberry));
+        words.add(new Thing(getString(R.string.grapefruit), "le", R.drawable.grapefruit));
+        words.add(new Thing(getString(R.string.guava), "la", R.drawable.guava));
+        words.add(new Thing(getString(R.string.kumquat), "le", R.drawable.kumquat));
+        words.add(new Thing(getString(R.string.lime), "le", R.drawable.lime));
+        words.add(new Thing(getString(R.string.mango), "la", R.drawable.mango));
+        words.add(new Thing(getString(R.string.mangosteen), "le", R.drawable.mangosteen));
+        words.add(new Thing(getString(R.string.papaya), "la", R.drawable.papaya));
+        words.add(new Thing(getString(R.string.granadilla), "la", R.drawable.passion_fruit_1));
+        words.add(new Thing(getString(R.string.peacj), "la", R.drawable.peach));
+        words.add(new Thing(getString(R.string.pear), "la", R.drawable.pear));
+        words.add(new Thing(getString(R.string.persimmon), "le", R.drawable.persimmon));
+        words.add(new Thing(getString(R.string.plum), "la", R.drawable.plum));
+        words.add(new Thing(getString(R.string.quince), "le", R.drawable.quince));
+        words.add(new Thing(getString(R.string.rambutan), "le", R.drawable.rambutan));
+        words.add(new Thing(getString(R.string.raspberry), "la", R.drawable.raspberry));
+        words.add(new Thing(getString(R.string.date), "la", R.drawable.date));
+        words.add(new Thing(getString(R.string.carrot), "la", R.drawable.carrot));
+        words.add(new Thing(getString(R.string.bell_pepper), "le", R.drawable.bell_pepper));
+        words.add(new Thing(getString(R.string.corn), "le", R.drawable.corn));
+        words.add(new Thing(getString(R.string.cucumber), "le", R.drawable.cucumber));
+        words.add(new Thing(getString(R.string.eggplant), "l'", R.drawable.eggplant));
+        words.add(new Thing(getString(R.string.garlic), "l'", R.drawable.garlic));
+        words.add(new Thing(getString(R.string.peas), "les", R.drawable.peas));
+        words.add(new Thing(getString(R.string.potato), "la", R.drawable.potato));
+        words.add(new Thing(getString(R.string.radish), "le", R.drawable.radish));
+        words.add(new Thing(getString(R.string.lettuce), "la", R.drawable.lettuce));
+        words.add(new Thing(getString(R.string.broccoli), "le", R.drawable.broccoli));
+        words.add(new Thing(getString(R.string.beet), "le", R.drawable.beet));
+        words.add(new Thing(getString(R.string.cabbage), "le", R.drawable.cabbage));
+        words.add(new Thing(getString(R.string.cauliflower), "le", R.drawable.cauliflower));
+        words.add(new Thing(getString(R.string.chili_pepper), "le", R.drawable.chili_pepper));
+        words.add(new Thing(getString(R.string.ginger), "le", R.drawable.ginger));
+        words.add(new Thing(getString(R.string.horseradish), "le", R.drawable.horseradish));
+        words.add(new Thing(getString(R.string.olives), "l'", R.drawable.olives));
+        words.add(new Thing(getString(R.string.spinach), "l'", R.drawable.spinach));
+        words.add(new Thing(getString(R.string.turnip), "le", R.drawable.turnip));
+        words.add(new Thing(getString(R.string.zucchini), "la", R.drawable.zucchini));
     }
 
     public void onOk(View view) {
@@ -684,6 +673,16 @@ public class MissingOneLetter extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        bluetoothManager.close();
+        stopped = true;
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (stopped) {
+            finish();
+            startActivity(getIntent());
+        }
     }
 }
