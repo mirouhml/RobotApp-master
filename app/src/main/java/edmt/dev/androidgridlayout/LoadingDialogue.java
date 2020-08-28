@@ -28,7 +28,4 @@ public class LoadingDialogue {
         isOn = false;
     }
 
-    public boolean getOn() {
-        return isOn;
-    }
 }
