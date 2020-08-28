@@ -84,7 +84,6 @@ public class MissingOneLetter extends AppCompatActivity {
         }
         //showing the loading view
         new Thread(() -> {
-            // TODO Auto-generated method stub
             try {
                 Thread.sleep(1800);
             } catch (InterruptedException e) {

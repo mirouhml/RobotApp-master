@@ -45,7 +45,6 @@ public class FreeMovement extends AppCompatActivity {
             mBluetoothAdapter.enable();
         }
         new Thread(() -> {
-            // TODO Auto-generated method stub
             try {
                 Thread.sleep(1800);
             } catch (InterruptedException e) {
