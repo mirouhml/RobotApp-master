@@ -186,4 +186,7 @@
     <string name="zebra">Zèbre</string>
     <string name="words_game">Jeu de mots</string>
     <string name="number" translatable="false">%1$d</string>
+    <string name="level_1">Niveau 1</string>
+    <string name="level_2">Niveau 2</string>
+    <string name="level_3">Niveau 3</string>
 </resources>

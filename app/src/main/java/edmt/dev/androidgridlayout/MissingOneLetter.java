@@ -306,15 +306,14 @@ public class MissingOneLetter extends AppCompatActivity {
         }
         //Toast.makeText(this, ""+location+ " "+ map[location], Toast.LENGTH_SHORT).show();
         //String result = firstHalf.toLowerCase() + map[location] + secondHalf;
-        if (c.toLowerCase().equals(map[location].toLowerCase())){
+        if (c.equalsIgnoreCase(map[location].toLowerCase())) {
             firstHalfTV.setVisibility(View.GONE);
             secondHalfTV.setVisibility(View.GONE);
             splitTV.setVisibility(View.GONE);
             wordTV.setVisibility(View.VISIBLE);
             wordTV.setText(word.getNAme());
             dialogue.startLoadingDialogue(R.layout.success);
-        }
-        else
+        } else
             message.setVisibility(View.VISIBLE);
     }
 

@@ -179,4 +179,7 @@
     <string name="yak">ثور التبيت</string>
     <string name="zebra">حمار وحشي</string>
     <string name="words_game">لعبة الكلمات</string>
+    <string name="level_1">Niveau 1</string>
+    <string name="level_2">Niveau 2</string>
+    <string name="level_3">Niveau 3</string>
 </resources>

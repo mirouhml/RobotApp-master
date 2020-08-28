@@ -14,10 +14,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".MissingOneLetter"
+        <activity
+            android:name=".MentalCalculationsLevel2"
+            android:configChanges="locale|orientation"
+            android:label="@string/level_2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MentalCalculationsLevel1"
+            android:configChanges="locale|orientation"
+            android:label="@string/level_1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MentalCalculations"
+            android:configChanges="locale|orientation"
+            android:label="@string/mental_calculations"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MissingOneLetter"
             android:configChanges="locale|orientation"
             android:label="@string/words_game"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SetLanguage"
             android:configChanges="locale|orientation"
@@ -69,9 +85,9 @@
             android:label="@string/fruits"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MentalCalculations"
+            android:name=".MentalCalculationsLevel3"
             android:configChanges="locale|orientation"
-            android:label="@string/mental_calculations"
+            android:label="@string/level_3"
             android:screenOrientation="portrait" />
         <activity
             android:name=".FreeMovement"
