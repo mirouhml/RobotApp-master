@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,21 +23,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MentalCalculationsLevel2 extends AppCompatActivity {
-    final LoadingDialogue dialogue = new LoadingDialogue(MentalCalculationsLevel2.this);
-    int solution;
-    EditText answer;
-    TextView num1;
-    TextView num2;
-    TextView oper;
-    TextView message;
-    String operator;
-    int number1;
-    int number2;
-    int[] map;
-    int location;
-    BluetoothManager bluetoothManager;
-    BluetoothAdapter mBluetoothAdapter;
-    SimpleBluetoothDeviceInterface deviceInterface;
+    private final LoadingDialogue dialogue = new LoadingDialogue(MentalCalculationsLevel2.this);
+    private int solution;
+    private TextView num1;
+    private TextView num2;
+    private TextView oper;
+    private TextView message;
+    private String operator;
+    private int number1;
+    private int number2;
+    private int[] map;
+    private int location;
+    private BluetoothManager bluetoothManager;
+    private SimpleBluetoothDeviceInterface deviceInterface;
     private CreateVariables variables;
     private boolean stopped = false;
 
@@ -51,7 +48,7 @@ public class MentalCalculationsLevel2 extends AppCompatActivity {
         setTitle(R.string.mental_calculations);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //checking whether the bluetooth is on or not
         if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)
@@ -69,7 +66,6 @@ public class MentalCalculationsLevel2 extends AppCompatActivity {
 
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        answer = findViewById(R.id.result);
         num1 = findViewById(R.id.first_number);
         num2 = findViewById(R.id.second_number);
         oper = findViewById(R.id.operator);

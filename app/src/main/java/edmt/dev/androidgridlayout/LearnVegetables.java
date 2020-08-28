@@ -1,10 +1,5 @@
 package edmt.dev.androidgridlayout;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,25 +9,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class LearnVegetables extends AppCompatActivity {
-    boolean playing = false;
-    TextToSpeech t2s;
-    String text;
-    ImageView play;
+    private boolean playing = false;
+    private TextToSpeech t2s;
+    private String text;
+    private ImageView play;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_vegetables);
         assert getSupportActionBar() != null;   //null check
         SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
-        String language = gameSettings.getString("Language","DEFAULT");
+        String language = gameSettings.getString("Language", "DEFAULT");
         play = findViewById(R.id.play);
         assert language != null;
-        if(language.equals("Arabic")){
+        if (language.equals("Arabic")) {
             play.setVisibility(View.GONE);
             ImageView playPlaceholder = findViewById(R.id.placeholder);
             playPlaceholder.setVisibility(View.VISIBLE);

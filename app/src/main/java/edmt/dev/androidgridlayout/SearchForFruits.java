@@ -26,22 +26,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class SearchForFruits extends AppCompatActivity {
-    final ArrayList<Thing> fruits = new ArrayList<>();
-    int[] map;
-    int theFruit;
-    int previousFruit = -1;
+    private final ArrayList<Thing> fruits = new ArrayList<>();
+    private final LoadingDialogue dialogue = new LoadingDialogue(SearchForFruits.this);
+    private int[] map;
+    private int theFruit;
     private CreateVariables variables;
-
-
-    TextView fruitTextView;
-    TextView message;
+    private int previousFruit = -1;
+    private TextView fruitTextView;
     private boolean stopped = false;
-
-    int location;
-    BluetoothManager bluetoothManager;
-    BluetoothAdapter mBluetoothAdapter;
-    SimpleBluetoothDeviceInterface deviceInterface;
-    final LoadingDialogue dialogue = new LoadingDialogue(SearchForFruits.this);
+    private TextView message;
+    private int location;
+    private BluetoothManager bluetoothManager;
+    private SimpleBluetoothDeviceInterface deviceInterface;
 
     @SuppressLint({"StaticFieldLeak", "ClickableViewAccessibility"})
     @Override
@@ -52,7 +48,7 @@ public class SearchForFruits extends AppCompatActivity {
         setTitle(R.string.fruits);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //checking whether the bluetooth is on or not
         if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)

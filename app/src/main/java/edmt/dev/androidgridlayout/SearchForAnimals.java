@@ -26,21 +26,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class SearchForAnimals extends AppCompatActivity {
-    final ArrayList<Thing> animals = new ArrayList<>();
-    int[] map;
-    int theAnimal;
-    int previousAnimal = -1;
+    private final ArrayList<Thing> animals = new ArrayList<>();
+    private final LoadingDialogue dialogue = new LoadingDialogue(SearchForAnimals.this);
+    private int[] map;
+    private int theAnimal;
     private CreateVariables variables;
 
     private boolean stopped = false;
-
-    TextView animalTextView;
-    TextView message;
+    private int previousAnimal = -1;
+    private TextView animalTextView;
     private SimpleBluetoothDeviceInterface deviceInterface;
-    int location;
-    BluetoothManager bluetoothManager;
-    BluetoothAdapter mBluetoothAdapter;
-    final LoadingDialogue dialogue = new LoadingDialogue(SearchForAnimals.this);
+    private TextView message;
+    private int location;
+    private BluetoothManager bluetoothManager;
 
     @SuppressLint({"StaticFieldLeak", "ClickableViewAccessibility"})
     @Override
@@ -51,7 +49,7 @@ public class SearchForAnimals extends AppCompatActivity {
         setTitle(R.string.animals);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //checking whether the bluetooth is on or not
         if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)

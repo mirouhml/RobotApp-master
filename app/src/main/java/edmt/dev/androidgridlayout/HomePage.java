@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,17 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
 
 public class HomePage extends AppCompatActivity {
-    GridLayout mainGrid;
-    BluetoothAdapter mBluetoothAdapter;
-    SharedPreferences gameSettings;
-    SharedPreferences.Editor prefEditor;
+    private SharedPreferences gameSettings;
+    private SharedPreferences.Editor prefEditor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainGrid = findViewById(R.id.mainGrid);
         //Locale locl = getResources().getConfiguration().locale;
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
             Toast.makeText(this, "This device doesn't have Bluetooth.", Toast.LENGTH_LONG).show(); // Replace context with your context instance.

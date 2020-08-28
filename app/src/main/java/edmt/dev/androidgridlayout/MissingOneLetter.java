@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,34 +29,28 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MissingOneLetter extends AppCompatActivity {
-    final String[] frenchAlpha = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "É", "È", "Ç", "À", "Ô", "Î", "Â", "Ï", "Œ"};
-    final String[] englishAlpha = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-    String c;
-    String firstHalf;
-    String secondHalf;
-    final String[] arabicAlpha = {"غ", "ظ", "ض", "ذ", "خ", "ث", "ت", "ش", "ر", "ق", "ص", "ف", "ع", "س", "ن", "م", "ل", "ك", "ي", "ط", "ح", "ز", "و", "ه", "د", "ج", "ب", "أ"};
-
-    TextView message;
-    int location;
-    List<Thing> words;
-    Thing word;
-
-    BluetoothManager bluetoothManager;
-    BluetoothAdapter mBluetoothAdapter;
-    SimpleBluetoothDeviceInterface deviceInterface;
-    final LoadingDialogue dialogue = new LoadingDialogue(MissingOneLetter.this);
-    String[] map;
-    String[] lettersUsed;
+    private final String[] frenchAlpha = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "É", "È", "Ç", "À", "Ô", "Î", "Â", "Ï", "Œ"};
+    private final String[] englishAlpha = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    private final String[] arabicAlpha = {"غ", "ظ", "ض", "ذ", "خ", "ث", "ت", "ش", "ر", "ق", "ص", "ف", "ع", "س", "ن", "م", "ل", "ك", "ي", "ط", "ح", "ز", "و", "ه", "د", "ج", "ب", "أ"};
+    private final LoadingDialogue dialogue = new LoadingDialogue(MissingOneLetter.this);
+    private String c;
+    private TextView message;
+    private int location;
+    private List<Thing> words;
+    private Thing word;
+    private BluetoothManager bluetoothManager;
+    private SimpleBluetoothDeviceInterface deviceInterface;
+    private String[] map;
+    private String[] lettersUsed;
     private CreateVariables variables;
     private boolean stopped = false;
 
-    TextView firstHalfTV;
-    TextView secondHalfTV;
-    TextView wordTV;
-    TextView splitTV;
-    String language;
-    EditText letterET;
-    int index = 0;
+    private TextView firstHalfTV;
+    private TextView secondHalfTV;
+    private TextView wordTV;
+    private TextView splitTV;
+    private String language;
+    private int index = 0;
 
     @SuppressLint({"StaticFieldLeak", "ClickableViewAccessibility"})
     @Override
@@ -73,10 +66,9 @@ public class MissingOneLetter extends AppCompatActivity {
         secondHalfTV = findViewById(R.id.second_half);
         wordTV = findViewById(R.id.word);
         splitTV = findViewById(R.id.split);
-        letterET = findViewById(R.id.letter);
         dialogue.startLoadingDialogue(R.layout.loading_dialogue);
         bluetoothManager = BluetoothManager.getInstance();
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //checking whether the bluetooth is on or not
         if (!mBluetoothAdapter.isEnabled()) {
             // Bluetooth is not enabled :)
@@ -205,8 +197,8 @@ public class MissingOneLetter extends AppCompatActivity {
                 setTile(j);
         }
 
-        firstHalf = word.getNAme().substring(0, splitCharacter);
-        secondHalf = word.getNAme().substring(splitCharacter + 1);
+        String firstHalf = word.getNAme().substring(0, splitCharacter);
+        String secondHalf = word.getNAme().substring(splitCharacter + 1);
         Log.d("MissingOneLetter", "firstHalf: " + firstHalf + " secondHalf: " + secondHalf);
         //Toast.makeText(this, ""+firstHalf+"+"+c+"+"+secondHalf, Toast.LENGTH_SHORT).show();
         assert language != null;
