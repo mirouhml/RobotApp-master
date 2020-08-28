@@ -143,15 +143,20 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
             message.setVisibility(View.VISIBLE);
     }
 
-    int random() {
-        return new Random().nextInt((100 - 1) + 1) + 1;//new Random().nextInt((max - min) + 1) + min;
+    private int randomPlus() {
+        return new Random().nextInt((100 - 50) + 1) + 50;//new Random().nextInt((max - min) + 1) + min;
     }
 
-    int randomMulti() {
+    private int randomMinus() {
+        return new Random().nextInt((100 - 30) + 1) + 30;//new Random().nextInt((max - min) + 1) + min;
+
+    }
+
+    private int randomMulti() {
         return new Random().nextInt((10 - 1) + 1) + 1;
     }
 
-    String randomOperator() {
+    private String randomOperator() {
         String[] arr = {"+", "-", "x"};
         Random random = new Random();
         // randomly selects an index from the arr
@@ -159,7 +164,7 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
         return arr[select];
     }
 
-    int randomSolution() {
+    private int randomSolution() {
         int sol = 0;
         switch (operator) {
             case "+": {
@@ -203,21 +208,23 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void setEquation() {
-        number1 = random();
-        number2 = random();
         operator = randomOperator();
         oper.setText(operator);
         switch (operator) {
             case "+": {
+                number1 = randomPlus();
+                number2 = randomPlus();
                 num1.setText("" + number1);
                 num2.setText("" + number2);
                 solution = number1 + number2;
                 break;
             }
             case "-": {
+                number1 = randomMinus();
+                number2 = randomMinus();
                 while (number1 < number2) {
-                    number1 = random();
-                    number2 = random();
+                    number1 = randomMinus();
+                    number2 = randomMinus();
                 }
                 num1.setText("" + number1);
                 num2.setText("" + number2);

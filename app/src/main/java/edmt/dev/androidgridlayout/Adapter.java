@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ThingViewHolder> {
@@ -52,7 +54,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ThingViewHolder> {
             textTitle = itemView.findViewById(R.id.textTitle);
         }
 
-        void setData(Thing thing/*, Resources resources, View view*/){
+        public void setData(Thing thing/*, Resources resources, View view*/) {
             kenBurnsView.setImageResource(thing.getImageResourceId());
             textTitle.setText(thing.getNAme());
             /*Bitmap bitmap = BitmapFactory.decodeResource(resources,

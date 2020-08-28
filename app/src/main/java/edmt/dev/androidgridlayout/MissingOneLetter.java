@@ -233,16 +233,17 @@ public class MissingOneLetter extends AppCompatActivity {
         }
     }
 
-    String randomLetter(){
+    private String randomLetter() {
         return lettersUsed[new Random().nextInt(lettersUsed.length)];
     }
-    private void setTile(int j){
-        switch (j){
-            case 0:{
+
+    private void setTile(int j) {
+        switch (j) {
+            case 0: {
                 variables.getBlackText().setText(map[j].toUpperCase());
                 break;
             }
-            case 1:{
+            case 1: {
                 variables.getRedText().setText(map[j].toUpperCase());
                 break;
             }

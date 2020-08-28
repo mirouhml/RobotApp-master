@@ -142,12 +142,12 @@ public class MentalCalculationsLevel1 extends AppCompatActivity {
             message.setVisibility(View.VISIBLE);
     }
 
-    int random() {
+    private int random() {
         return new Random().nextInt((20 - 1) + 1) + 1;//new Random().nextInt((max - min) + 1) + min;
     }
 
 
-    int randomSolution() {
+    private int randomSolution() {
         int min;
         if (number1 > number2)
             min = number1 + 1;

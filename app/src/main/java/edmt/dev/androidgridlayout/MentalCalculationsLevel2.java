@@ -143,19 +143,25 @@ public class MentalCalculationsLevel2 extends AppCompatActivity {
             message.setVisibility(View.VISIBLE);
     }
 
-    int random() {
-        return new Random().nextInt((50 - 1) + 1) + 1;//new Random().nextInt((max - min) + 1) + min;
+    private int randomPlus() {
+        return new Random().nextInt((50 - 20) + 1) + 20;//new Random().nextInt((max - min) + 1) + min;
     }
 
-    String randomOperator() {
-        String[] arr = {"+", "-", "x"};
+    private int randomMinus() {
+        return new Random().nextInt((30 - 1) + 1) + 1;//new Random().nextInt((max - min) + 1) + min;
+
+    }
+
+
+    private String randomOperator() {
+        String[] arr = {"+", "-"};
         Random random = new Random();
         // randomly selects an index from the arr
         int select = random.nextInt(arr.length);
         return arr[select];
     }
 
-    int randomSolution() {
+    private int randomSolution() {
         int sol = 0;
         switch (operator) {
             case "+": {
@@ -190,21 +196,24 @@ public class MentalCalculationsLevel2 extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void setEquation() {
-        number1 = random();
-        number2 = random();
+
         operator = randomOperator();
         oper.setText(operator);
         switch (operator) {
             case "+": {
+                number1 = randomPlus();
+                number2 = randomPlus();
                 num1.setText("" + number1);
                 num2.setText("" + number2);
                 solution = number1 + number2;
                 break;
             }
             case "-": {
+                number1 = randomMinus();
+                number2 = randomMinus();
                 while (number1 < number2) {
-                    number1 = random();
-                    number2 = random();
+                    number1 = randomMinus();
+                    number2 = randomMinus();
                 }
                 num1.setText("" + number1);
                 num2.setText("" + number2);
