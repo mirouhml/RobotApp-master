@@ -139,6 +139,8 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
         }
         if (map[location] == solution) {
             dialogue.startLoadingDialogue(R.layout.success);
+            message.setVisibility(View.INVISIBLE);
+
         } else
             message.setVisibility(View.VISIBLE);
     }
@@ -249,7 +251,9 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
         map = new int[]{-1, -1, -1,
                 -1, -1, -1,
                 -1, -1, -1};
-        for (int j = 0; j < 2; j++) {
+        map[0] = solution;
+
+        for (int j = 1; j < 3; j++) {
             map[j] = randomSolution();
             for (int k = 0; k < j; k++) {
                 if (map[j] == map[k]) {
@@ -258,7 +262,6 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
                 }
             }
         }
-        map[2] = solution;
         shuffleArray(map);
         for (int j = 0; j < map.length; j++) {
             if (map[j] != -1)
@@ -417,11 +420,11 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.VISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.VISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -453,10 +456,10 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.VISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
@@ -468,8 +471,8 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
                 variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -518,6 +521,12 @@ public class MentalCalculationsLevel3 extends AppCompatActivity {
 
     public void onOk(View view) {
         dialogue.dismissLoadingDIalogue();
+        finish();
+    }
+
+    public void cancel(View view) {
+        dialogue.dismissLoadingDIalogue();
+        bluetoothManager.close();
         finish();
     }
 }

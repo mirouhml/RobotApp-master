@@ -177,4 +177,6 @@ public class LearnFruits extends AppCompatActivity {
         fruits.add(new Thing(getString(R.string.raspberry),"la",R.drawable.raspberry));
         fruits.add(new Thing(getString(R.string.date),"la",R.drawable.date));
     }
+
+
 }

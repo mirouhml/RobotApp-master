@@ -106,7 +106,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:theme="@style/AppTheme.Button"
-                    android:onClick="clickChoose"
+                    android:onClick="confirmAnswer"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
             <EditText

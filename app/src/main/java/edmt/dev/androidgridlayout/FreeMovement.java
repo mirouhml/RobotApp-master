@@ -64,30 +64,30 @@ public class FreeMovement extends AppCompatActivity {
 
         up.setOnTouchListener(((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN)
-                deviceInterface.sendMessage("1");
+                deviceInterface.sendMessage("1"); // 1 pour Up
             else if (event.getAction() == MotionEvent.ACTION_UP)
-                deviceInterface.sendMessage("S");
+                deviceInterface.sendMessage("S");// S pour Stop
             return false;
         }));
         down.setOnTouchListener(((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN)
-                deviceInterface.sendMessage("2");
+                deviceInterface.sendMessage("2");// 2 pour Down
             else if (event.getAction() == MotionEvent.ACTION_UP)
-                deviceInterface.sendMessage("S");
+                deviceInterface.sendMessage("S");// S pour Stop
             return false;
         }));
         right.setOnTouchListener(((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN)
-                deviceInterface.sendMessage("4");
+                deviceInterface.sendMessage("4");// 3 pour Right
             else if (event.getAction() == MotionEvent.ACTION_UP)
-                deviceInterface.sendMessage("S");
+                deviceInterface.sendMessage("S");// S pour Stop
             return false;
         }));
         left.setOnTouchListener(((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN)
-                deviceInterface.sendMessage("3");
+                deviceInterface.sendMessage("3");// 4 pour Left
             else if (event.getAction() == MotionEvent.ACTION_UP)
-                deviceInterface.sendMessage("S");
+                deviceInterface.sendMessage("S");// S pour Stop
             return false;
         }));
 
@@ -140,7 +140,6 @@ public class FreeMovement extends AppCompatActivity {
     }
 
     private void onError(Throwable error) {
-        // Handle the error
         dialogue.dismissLoadingDIalogue();
         dialogue.startLoadingDialogue(R.layout.connect_robot);
     }
@@ -192,11 +191,11 @@ public class FreeMovement extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.VISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.VISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -228,10 +227,10 @@ public class FreeMovement extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.VISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
@@ -243,8 +242,8 @@ public class FreeMovement extends AppCompatActivity {
                 variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -289,5 +288,11 @@ public class FreeMovement extends AppCompatActivity {
             finish();
             startActivity(getIntent());
         }
+    }
+
+    public void cancel(View view) {
+        dialogue.dismissLoadingDIalogue();
+        bluetoothManager.close();
+        finish();
     }
 }

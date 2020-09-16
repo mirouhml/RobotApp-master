@@ -14,12 +14,8 @@ import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ThingViewHolder> {
     private List<Thing> things;
-    //Resources resources;
-   // View view;
     public Adapter(List<Thing> things/*, Resources resources, View view*/){
         this.things = things;
-        //this.resources = resources;
-        //this.view = view;
     }
     @NonNull
     @Override
@@ -44,36 +40,40 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ThingViewHolder> {
     }
 
     static class ThingViewHolder extends RecyclerView.ViewHolder{
-
+        private TextView kenBurnsText;
         private ImageView kenBurnsView;
         private TextView textTitle;
+        private View view;
 
         ThingViewHolder(@NonNull View itemView) {
             super(itemView);
+            kenBurnsText = itemView.findViewById(R.id.kenBurnsText);
             kenBurnsView = itemView.findViewById(R.id.kenBurnsView);
             textTitle = itemView.findViewById(R.id.textTitle);
+            view = itemView.findViewById(R.id.view);
         }
 
         public void setData(Thing thing/*, Resources resources, View view*/) {
-            kenBurnsView.setImageResource(thing.getImageResourceId());
-            textTitle.setText(thing.getNAme());
-            /*Bitmap bitmap = BitmapFactory.decodeResource(resources,
-                    thing.getImageResourceId());
-            Palette.from(bitmap).generate(p -> {
-                // Use generated instance
-                assert p != null;
-                int color = getDominantSwatch(p).getRgb();
-                view.setBackgroundColor(color);
-            });*/
-        }
-        /*private Palette.Swatch getDominantSwatch(Palette palette) {
-            // find most-represented swatch based on population
-            return Collections.max(palette.getSwatches(), new Comparator<Palette.Swatch>() {
-                @Override
-                public int compare(Palette.Swatch sw1, Palette.Swatch sw2) {
-                    return Integer.compare(sw1.getPopulation(), sw2.getPopulation());
+            if (thing.isHasImage()) {
+                view.setVisibility(View.VISIBLE);
+                textTitle.setVisibility(View.VISIBLE);
+                kenBurnsView.setVisibility(View.VISIBLE);
+                kenBurnsText.setVisibility(View.GONE);
+                kenBurnsView.setImageResource(thing.getImageResourceId());
+                textTitle.setText(thing.getNAme());
+            } else {
+                kenBurnsView.setVisibility(View.GONE);
+                kenBurnsText.setVisibility(View.VISIBLE);
+                kenBurnsText.setText(thing.getNAme());
+                textTitle.setText(thing.getGender());
+                if (thing.isHasText()) {
+                    view.setVisibility(View.VISIBLE);
+                    textTitle.setVisibility(View.VISIBLE);
+                } else {
+                    view.setVisibility(View.INVISIBLE);
+                    textTitle.setVisibility(View.INVISIBLE);
                 }
-            });
-        }*/
+            }
+        }
     }
 }

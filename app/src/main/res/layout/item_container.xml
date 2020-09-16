@@ -13,12 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/border_card">
+
+        <TextView
+            android:id="@+id/kenBurnsText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="200sp"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/kenBurnsView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="30dp"
-            android:contentDescription="TODO" />
+            android:padding="30dp" />
 
         <View
             android:id="@+id/view"

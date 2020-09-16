@@ -15,6 +15,21 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".LearnAlphabet"
+            android:configChanges="locale|orientation"
+            android:label="@string/alphabet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LearnNumbers"
+            android:configChanges="locale|orientation"
+            android:label="@string/numbers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MentalCalculationsLevel0"
+            android:configChanges="locale|orientation"
+            android:label="@string/level_0"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MentalCalculationsLevel2"
             android:configChanges="locale|orientation"
             android:label="@string/level_2"
@@ -27,7 +42,7 @@
         <activity
             android:name=".MentalCalculations"
             android:configChanges="locale|orientation"
-            android:label="@string/mental_calculations"
+            android:label="Calcul Mental"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MissingOneLetter"

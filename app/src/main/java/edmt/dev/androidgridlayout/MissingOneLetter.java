@@ -304,6 +304,7 @@ public class MissingOneLetter extends AppCompatActivity {
             splitTV.setVisibility(View.GONE);
             wordTV.setVisibility(View.VISIBLE);
             wordTV.setText(word.getNAme());
+            message.setVisibility(View.INVISIBLE);
             dialogue.startLoadingDialogue(R.layout.success);
         } else
             message.setVisibility(View.VISIBLE);
@@ -416,11 +417,11 @@ public class MissingOneLetter extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.VISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.VISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -452,10 +453,10 @@ public class MissingOneLetter extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.VISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
@@ -467,8 +468,8 @@ public class MissingOneLetter extends AppCompatActivity {
                 variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -675,5 +676,11 @@ public class MissingOneLetter extends AppCompatActivity {
             finish();
             startActivity(getIntent());
         }
+    }
+
+    public void cancel(View view) {
+        dialogue.dismissLoadingDIalogue();
+        bluetoothManager.close();
+        finish();
     }
 }

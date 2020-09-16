@@ -1,13 +1,13 @@
 package edmt.dev.androidgridlayout;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Learn extends AppCompatActivity {
 
@@ -38,13 +38,23 @@ public class Learn extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickOnVegetables(View view){
+    public void clickOnVegetables(View view) {
         Intent intent = new Intent(Learn.this, LearnVegetables.class);
         startActivity(intent);
     }
 
-    public void clickOnAnimals(View view){
+    public void clickOnAnimals(View view) {
         Intent intent = new Intent(Learn.this, LearnAnimals.class);
+        startActivity(intent);
+    }
+
+    public void clickOnNumbers(View view) {
+        Intent intent = new Intent(Learn.this, LearnNumbers.class);
+        startActivity(intent);
+    }
+
+    public void clickOnAlphabet(View view) {
+        Intent intent = new Intent(Learn.this, LearnAlphabet.class);
         startActivity(intent);
     }
 }

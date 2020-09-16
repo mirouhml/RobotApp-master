@@ -175,6 +175,8 @@ public class SearchForVegetables extends AppCompatActivity {
         if (map[location] == theVegetable)
         {
             dialogue.startLoadingDialogue(R.layout.success);
+            message.setVisibility(View.INVISIBLE);
+
         }
 
         else
@@ -309,7 +311,7 @@ public class SearchForVegetables extends AppCompatActivity {
         }
     }
 
-    private void setLocation(){
+    private void setLocation() {
         switch (location) {
             case 0: {
                 variables.getBlackLocation().setVisibility(View.VISIBLE);
@@ -321,7 +323,6 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
                 variables.getBlackMystery().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -335,7 +336,6 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
                 variables.getRedMystery().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -349,7 +349,6 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
                 variables.getYellowMystery().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -357,14 +356,13 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.VISIBLE);
+                variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
+                variables.getWhiteLocation().setVisibility(View.VISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
-                variables.getBlueMystery().setVisibility(View.INVISIBLE);
+                variables.getWhiteMystery().setVisibility(View.INVISIBLE);
                 break;
             }
             case 4: {
@@ -377,7 +375,6 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
                 variables.getPurpleMystery().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -391,7 +388,6 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
                 variables.getPinkMystery().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -399,14 +395,13 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getBlackLocation().setVisibility(View.INVISIBLE);
                 variables.getRedLocation().setVisibility(View.INVISIBLE);
                 variables.getYellowLocation().setVisibility(View.INVISIBLE);
-                variables.getBlueLocation().setVisibility(View.INVISIBLE);
+                variables.getBlueLocation().setVisibility(View.VISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
-                variables.getGreenMystery().setVisibility(View.INVISIBLE);
+                variables.getBlueMystery().setVisibility(View.INVISIBLE);
                 break;
             }
             case 7: {
@@ -416,11 +411,10 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getBlueLocation().setVisibility(View.INVISIBLE);
                 variables.getPurpleLocation().setVisibility(View.INVISIBLE);
                 variables.getPinkLocation().setVisibility(View.INVISIBLE);
-                variables.getGreenLocation().setVisibility(View.INVISIBLE);
-                variables.getWhiteLocation().setVisibility(View.VISIBLE);
+                variables.getGreenLocation().setVisibility(View.VISIBLE);
+                variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.INVISIBLE);
-
-                variables.getWhiteMystery().setVisibility(View.INVISIBLE);
+                variables.getGreenMystery().setVisibility(View.INVISIBLE);
                 break;
             }
             case 8: {
@@ -433,7 +427,6 @@ public class SearchForVegetables extends AppCompatActivity {
                 variables.getGreenLocation().setVisibility(View.INVISIBLE);
                 variables.getWhiteLocation().setVisibility(View.INVISIBLE);
                 variables.getGrayLocation().setVisibility(View.VISIBLE);
-
                 variables.getGrayMystery().setVisibility(View.INVISIBLE);
                 break;
             }
@@ -524,5 +517,11 @@ public class SearchForVegetables extends AppCompatActivity {
             finish();
             startActivity(getIntent());
         }
+    }
+
+    public void cancel(View view) {
+        dialogue.dismissLoadingDIalogue();
+        bluetoothManager.close();
+        finish();
     }
 }
